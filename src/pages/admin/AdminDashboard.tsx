@@ -20,9 +20,9 @@ import { useToast } from "@/hooks/use-toast";
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [bookings, setBookings] = useState<any[]>([]);
-  const [properties, setProperties] = useState<any[]>([]);
-  const [editingProperty, setEditingProperty] = useState<any>(null);
+  const [bookings, setBookings] = useState<unknown[]>([]);
+  const [properties, setProperties] = useState<unknown[]>([]);
+  const [editingProperty, setEditingProperty] = useState<unknown>(null);
 
   useEffect(() => {
     // Check if admin is authenticated
@@ -151,15 +151,15 @@ const AdminDashboard = () => {
     navigate("/admin/login");
   };
 
-  const handlePropertyAdded = (newProperty: any) => {
+  const handlePropertyAdded = (newProperty: unknown) => {
     setProperties(prev => [...prev, newProperty]);
   };
 
-  const handleEditProperty = (property: any) => {
+  const handleEditProperty = (property: unknown) => {
     setEditingProperty(property);
   };
 
-  const handlePropertyUpdated = (updatedProperty: any) => {
+  const handlePropertyUpdated = (updatedProperty: unknown) => {
     setProperties(prev => prev.map(p => p.id === updatedProperty.id ? updatedProperty : p));
     setEditingProperty(null);
   };
