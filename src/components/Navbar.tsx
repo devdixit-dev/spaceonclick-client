@@ -16,10 +16,10 @@ const Navbar = () => {
   return (
     <nav className="bg-background border-b border-border sticky top-0 z-50 shadow-soft">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-24">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <span className="text-2xl font-bold text-primary font-effra">SpaceOnClick</span>
+            <span className="text-2xl font-bold text-primary font-effra">Space On Click</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -41,12 +41,15 @@ const Navbar = () => {
               <Phone className="h-4 w-4" />
               <span className="font-medium">+1 (555) 123-4567</span>
             </div>
+            
+            <div className="flex items-center space-x-1 text-text-secondary cursor-pointer hover:text-primary transition-colors">
+              <span className="font-medium">EN</span>
+              <ChevronDown className="h-4 w-4" />
+            </div>
 
-            <a href="mailto:msi.devdixit@gmail.com">
-              <Button variant="professional" size="sm">
-                Send Email
-              </Button>
-            </a>
+            <Button variant="professional" size="sm">
+              Contact Us
+            </Button>
           </div>
 
           {/* Mobile Menu */}
@@ -68,18 +71,16 @@ const Navbar = () => {
                     {item.name}
                   </Link>
                 ))}
-
+                
                 <div className="pt-4 border-t border-border">
                   <div className="flex items-center space-x-2 text-text-secondary mb-4">
                     <Phone className="h-4 w-4" />
                     <span className="font-medium">+1 (555) 123-4567</span>
                   </div>
                   
-                  <a href="mailto:msi.devdixit@gmail.com">
-                    <Button variant="professional" className="w-full">
-                      Send Email
-                    </Button>
-                  </a>
+                  <Button variant="professional" className="w-full">
+                    Contact Us
+                  </Button>
                 </div>
               </div>
             </SheetContent>

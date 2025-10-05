@@ -79,7 +79,7 @@ const ThankYou = () => {
               </div>
               <div className="flex items-center justify-center">
                 <Mail className="h-4 w-4 mr-2 text-primary" />
-                <span className="text-text-secondary">hello@spaceonclick.com</span>
+                <span className="text-text-secondary">hello@Space On Click.com</span>
               </div>
             </div>
           </div>
@@ -92,7 +92,7 @@ const ThankYou = () => {
               </Button>
             </Link>
             <Button variant="outline-professional" asChild>
-              <a href="mailto:hello@spaceonclick.com">
+              <a href="mailto:hello@Space On Click.com">
                 Contact Support
               </a>
             </Button>

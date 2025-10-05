@@ -19,7 +19,7 @@ const AdminLogin = () => {
 
   // Dummy admin credentials
   const ADMIN_CREDENTIALS = {
-    username: "admin@spaceonclick.com",
+    username: "admin@Space On Click.com",
     password: "admin123"
   };
 
@@ -35,7 +35,7 @@ const AdminLogin = () => {
       localStorage.setItem("adminAuth", "true");
       toast({
         title: "Login Successful",
-        description: "Welcome to SpaceOnClick Admin Panel",
+        description: "Welcome to Space On Click Admin Panel",
       });
       navigate("/admin/dashboard");
     } else {
@@ -61,7 +61,7 @@ const AdminLogin = () => {
             <Lock className="h-6 w-6 text-primary-foreground" />
           </div>
           <CardTitle className="text-2xl font-bold text-text-primary font-effra">
-            SpaceOnClick Admin
+            Space On Click Admin
           </CardTitle>
           <p className="text-text-secondary">Sign in to access the admin panel</p>
         </CardHeader>
@@ -74,7 +74,7 @@ const AdminLogin = () => {
                 <Input
                   id="username"
                   type="email"
-                  placeholder="admin@spaceonclick.com"
+                  placeholder="admin@Space On Click.com"
                   value={formData.username}
                   onChange={(e) => handleInputChange("username", e.target.value)}
                   className="pl-10"
@@ -108,7 +108,7 @@ const AdminLogin = () => {
 
             <div className="bg-accent/50 p-3 rounded-md text-sm text-text-secondary">
               <p className="font-medium mb-1">Demo Credentials:</p>
-              <p>Email: admin@spaceonclick.com</p>
+              <p>Email: admin@Space On Click.com</p>
               <p>Password: admin123</p>
             </div>
 

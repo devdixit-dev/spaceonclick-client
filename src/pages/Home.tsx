@@ -67,7 +67,7 @@ const Home = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="py-40 bg-gradient-subtle">
+      <section className="py-16 bg-gradient-subtle">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-text-primary mb-6 font-effra">
             Premium Office Spaces
@@ -98,7 +98,7 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-text-primary mb-4 font-effra">
-              Why Choose SpaceOnClick
+              Why Choose Space On Click
             </h2>
             <p className="text-text-secondary max-w-2xl mx-auto">
               We provide more than just office space - we deliver an ecosystem for business success.

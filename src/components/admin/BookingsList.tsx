@@ -118,8 +118,7 @@ const BookingsList = ({ bookings }: { bookings: Booking[] }) => {
                     <TableCell>
                       <Badge variant={getStatusColor(booking.status)} className="flex items-center gap-1 w-fit">
                         {getStatusIcon(booking.status)}
-                        {booking.status} 
-                        {/* .charAt(0).toUpperCase() + booking.status.slice(1) */}
+                        {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
                       </Badge>
                     </TableCell>
                     <TableCell>

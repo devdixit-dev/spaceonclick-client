@@ -20,9 +20,9 @@ import { useToast } from "@/hooks/use-toast";
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [bookings, setBookings] = useState<unknown[]>([]);
-  const [properties, setProperties] = useState<unknown[]>([]);
-  const [editingProperty, setEditingProperty] = useState<unknown>(null);
+  const [bookings, setBookings] = useState<any[]>([]);
+  const [properties, setProperties] = useState<any[]>([]);
+  const [editingProperty, setEditingProperty] = useState<any>(null);
 
   useEffect(() => {
     // Check if admin is authenticated
@@ -151,15 +151,15 @@ const AdminDashboard = () => {
     navigate("/admin/login");
   };
 
-  const handlePropertyAdded = (newProperty: unknown) => {
+  const handlePropertyAdded = (newProperty: any) => {
     setProperties(prev => [...prev, newProperty]);
   };
 
-  const handleEditProperty = (property: unknown) => {
+  const handleEditProperty = (property: any) => {
     setEditingProperty(property);
   };
 
-  const handlePropertyUpdated = (updatedProperty: unknown) => {
+  const handlePropertyUpdated = (updatedProperty: any) => {
     setProperties(prev => prev.map(p => p.id === updatedProperty.id ? updatedProperty : p));
     setEditingProperty(null);
   };
@@ -215,7 +215,7 @@ const AdminDashboard = () => {
                 <LayoutDashboard className="h-4 w-4 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-text-primary font-effra">SpaceOnClick Admin</h1>
+                <h1 className="text-xl font-bold text-text-primary font-effra">Space On Click Admin</h1>
                 <p className="text-sm text-text-secondary">Dashboard</p>
               </div>
             </div>

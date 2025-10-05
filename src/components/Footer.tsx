@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="md:col-span-1">
-            <h3 className="text-2xl font-bold text-primary font-effra mb-4">SpaceOnClick</h3>
+            <h3 className="text-2xl font-bold text-primary font-effra mb-4">Space On Click</h3>
             <p className="text-text-secondary leading-relaxed">
               Premium office spaces designed for modern businesses. Find your perfect workspace today.
             </p>
@@ -43,7 +43,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <Mail className="h-4 w-4 mr-3 text-primary" />
-                <span className="text-text-secondary">hello@spaceonclick.com</span>
+                <span className="text-text-secondary">hello@Space On Click.com</span>
               </div>
             </div>
           </div>
@@ -64,7 +64,7 @@ const Footer = () => {
 
         <div className="border-t border-border mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between">
           <p className="text-text-muted text-sm mb-2 sm:mb-0">
-            © 2024 SpaceOnClick. All rights reserved. | Premium office spaces for modern businesses.
+            © 2024 Space On Click. All rights reserved. | Premium office spaces for modern businesses.
           </p>
           <Link 
             to="/admin/login" 
