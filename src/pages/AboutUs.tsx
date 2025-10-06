@@ -60,7 +60,7 @@ const AboutUs = () => {
       <section className="py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
         <div className="container mx-auto px-4 text-center">
           <Badge variant="secondary" className="mb-4">About Space On Click</Badge>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+          <h1 className="text-4xl py-4 md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
             Redefining Workspace Solutions
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
@@ -173,11 +173,11 @@ const AboutUs = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <div className="flex items-center gap-2 text-muted-foreground">
               <Phone className="h-5 w-5" />
-              <span>+1 (555) 123-4567</span>
+              <span>+91 12345 67890</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <MapPin className="h-5 w-5" />
-              <span>Downtown Business District</span>
+              <span>Race Course Road, Vadodara</span>
             </div>
           </div>
         </div>

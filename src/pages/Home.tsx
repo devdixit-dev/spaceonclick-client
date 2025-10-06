@@ -67,7 +67,7 @@ const Home = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="py-16 bg-gradient-subtle">
+      <section className="py-24 bg-gradient-subtle">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-text-primary mb-6 font-effra">
             Premium Office Spaces

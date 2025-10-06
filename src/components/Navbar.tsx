@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Phone, Menu, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
+import logo from '@/assets/logo.png'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,12 +15,13 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="bg-background border-b border-border sticky top-0 z-50 shadow-soft">
+    <nav className="py-4 bg-background border-border sticky top-0 z-50 shadow-soft">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <span className="text-2xl font-bold text-primary font-effra">Space On Click</span>
+            <img src={logo} alt="" className="w-32 h-32 rounded-lg" />
+            {/* <span className="text-2xl font-bold text-primary font-effra">Space On Click</span> */}
           </Link>
 
           {/* Desktop Navigation */}
@@ -39,17 +41,8 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             <div className="flex items-center space-x-2 text-text-secondary">
               <Phone className="h-4 w-4" />
-              <span className="font-medium">+1 (555) 123-4567</span>
+              <span className="font-medium">+91 12345 67890</span>
             </div>
-            
-            <div className="flex items-center space-x-1 text-text-secondary cursor-pointer hover:text-primary transition-colors">
-              <span className="font-medium">EN</span>
-              <ChevronDown className="h-4 w-4" />
-            </div>
-
-            <Button variant="professional" size="sm">
-              Contact Us
-            </Button>
           </div>
 
           {/* Mobile Menu */}

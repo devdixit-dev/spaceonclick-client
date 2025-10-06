@@ -39,11 +39,11 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center">
                 <Phone className="h-4 w-4 mr-3 text-primary" />
-                <span className="text-text-secondary">+1 (555) 123-4567</span>
+                <span className="text-text-secondary">+91 12345 67890</span>
               </div>
               <div className="flex items-center">
                 <Mail className="h-4 w-4 mr-3 text-primary" />
-                <span className="text-text-secondary">hello@Space On Click.com</span>
+                <span className="text-text-secondary">info@spaceonclick.com</span>
               </div>
             </div>
           </div>
@@ -54,9 +54,9 @@ const Footer = () => {
             <div className="flex items-start">
               <MapPin className="h-4 w-4 mr-3 text-primary mt-1" />
               <address className="text-text-secondary not-italic">
-                123 Business District<br />
-                Downtown Office Center<br />
-                New York, NY 10001
+                26, Haribhakti Society<br />
+                5, Samarpan Society, Race Course Rd<br />
+                Vadodara, GJ 390007
               </address>
             </div>
           </div>
@@ -64,14 +64,8 @@ const Footer = () => {
 
         <div className="border-t border-border mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between">
           <p className="text-text-muted text-sm mb-2 sm:mb-0">
-            © 2024 Space On Click. All rights reserved. | Premium office spaces for modern businesses.
+            © 2025 Space On Click. All rights reserved. | Premium office spaces for modern businesses.
           </p>
-          <Link 
-            to="/admin/login" 
-            className="text-text-muted text-sm hover:text-primary transition-colors"
-          >
-            Admin Access
-          </Link>
         </div>
       </div>
     </footer>
