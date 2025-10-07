@@ -125,14 +125,14 @@ const PropertiesManagement = ({
                   </TableCell>
                   <TableCell>
                     <div className="flex gap-2">
-                      <Button 
+                      {/* <Button 
                         variant="outline" 
                         size="sm"
-                        onClick={() => {/* View details */}}
+                        onClick={() => {View details}}
                       >
                         <Eye className="h-3 w-3 mr-1" />
                         View
-                      </Button>
+                      </Button> */}
                       <Button 
                         variant="outline" 
                         size="sm"

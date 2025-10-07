@@ -108,8 +108,8 @@ const AdminLogin = () => {
 
             <div className="bg-accent/50 p-3 rounded-md text-sm text-text-secondary">
               <p className="font-medium mb-1">Demo Credentials:</p>
-              <p>Email: admin@Space On Click.com</p>
-              <p>Password: admin123</p>
+              <p>Email: admin</p>
+              <p>Password: admin</p>
             </div>
 
             <Button 

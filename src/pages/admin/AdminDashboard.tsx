@@ -177,32 +177,32 @@ const AdminDashboard = () => {
   };
 
   // Statistics
-  const stats = [
-    {
-      title: "Total Bookings",
-      value: bookings.length.toString(),
-      icon: Calendar,
-      trend: "+12%"
-    },
-    {
-      title: "Active Properties",
-      value: properties.filter(p => p.status === "Available").length.toString(),
-      icon: Building,
-      trend: "+0%"
-    },
-    {
-      title: "Total Inquiries",
-      value: (bookings.length + 5).toString(),
-      icon: Users,
-      trend: "+8%"
-    },
-    {
-      title: "Revenue This Month",
-      value: "$12,500",
-      icon: TrendingUp,
-      trend: "+15%"
-    }
-  ];
+  // const stats = [
+  //   {
+  //     title: "Total Bookings",
+  //     value: bookings.length.toString(),
+  //     icon: Calendar,
+  //     trend: "+12%"
+  //   },
+  //   {
+  //     title: "Active Properties",
+  //     value: properties.filter(p => p.status === "Available").length.toString(),
+  //     icon: Building,
+  //     trend: "+0%"
+  //   },
+  //   {
+  //     title: "Total Inquiries",
+  //     value: (bookings.length + 5).toString(),
+  //     icon: Users,
+  //     trend: "+8%"
+  //   },
+  //   {
+  //     title: "Revenue This Month",
+  //     value: "$12,500",
+  //     icon: TrendingUp,
+  //     trend: "+15%"
+  //   }
+  // ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -229,7 +229,7 @@ const AdminDashboard = () => {
 
       <div className="container mx-auto px-4 py-8">
         {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {stats.map((stat, index) => (
             <Card key={index}>
               <CardContent className="p-6">
@@ -246,7 +246,7 @@ const AdminDashboard = () => {
               </CardContent>
             </Card>
           ))}
-        </div>
+        </div> */}
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="bookings" className="space-y-6" value={editingProperty ? "add-property" : undefined}>

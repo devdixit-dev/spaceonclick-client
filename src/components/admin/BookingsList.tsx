@@ -135,11 +135,7 @@ const BookingsList = ({ bookings }: { bookings: Booking[] }) => {
                       </div>
                     </TableCell>
                     <TableCell>
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm">
-                          <Eye className="h-3 w-3 mr-1" />
-                          View
-                        </Button>
+                      <div className="flex">
                         {booking.status === 'pending' && (
                           <Button variant="default" size="sm">
                             Confirm
