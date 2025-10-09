@@ -9,16 +9,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { 
-  Calendar, 
-  Mail, 
-  Phone, 
-  Building, 
-  Clock, 
+import {
+  Calendar,
+  Mail,
+  Phone,
+  Building,
+  Clock,
   User,
-  Eye,
   CheckCircle,
-  XCircle
+  XCircle,
 } from "lucide-react";
 
 interface Booking {
@@ -34,7 +33,7 @@ interface Booking {
   visitDate: string;
   visitTime: string;
   planType: string;
-  status: 'confirmed' | 'pending' | 'cancelled';
+  status: "confirmed" | "pending" | "cancelled";
   additionalDetails?: string;
   createdAt: string;
 }
@@ -42,34 +41,48 @@ interface Booking {
 const BookingsList = ({ bookings }: { bookings: Booking[] }) => {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'confirmed': return 'default';
-      case 'pending': return 'secondary';
-      case 'cancelled': return 'destructive';
-      default: return 'secondary';
+      case "confirmed":
+        return "default";
+      case "pending":
+        return "secondary";
+      case "cancelled":
+        return "destructive";
+      default:
+        return "secondary";
     }
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'confirmed': return <CheckCircle className="h-4 w-4" />;
-      case 'cancelled': return <XCircle className="h-4 w-4" />;
-      default: return <Clock className="h-4 w-4" />;
+      case "confirmed":
+        return <CheckCircle className="h-4 w-4" />;
+      case "cancelled":
+        return <XCircle className="h-4 w-4" />;
+      default:
+        return <Clock className="h-4 w-4" />;
     }
   };
 
+  // Utility: safely capitalize
+  const formatStatus = (status?: string) => {
+    if (!status) return "Unknown";
+    return status.charAt(0).toUpperCase() + status.slice(1);
+  };
+
   return (
-    <Card>
+    <Card className="shadow-sm border border-border">
       <CardHeader>
-        <CardTitle className="flex items-center">
-          <Calendar className="h-5 w-5 mr-2" />
+        <CardTitle className="flex items-center gap-2 text-lg font-semibold">
+          <Calendar className="h-5 w-5 text-primary" />
           All Bookings & Property Schedules
         </CardTitle>
       </CardHeader>
+
       <CardContent>
         {bookings.length > 0 ? (
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto rounded-lg border border-border">
             <Table>
-              <TableHeader>
+              <TableHeader className="bg-muted/50">
                 <TableRow>
                   <TableHead>Customer</TableHead>
                   <TableHead>Property</TableHead>
@@ -80,9 +93,11 @@ const BookingsList = ({ bookings }: { bookings: Booking[] }) => {
                   <TableHead>Actions</TableHead>
                 </TableRow>
               </TableHeader>
+
               <TableBody>
                 {bookings.map((booking) => (
-                  <TableRow key={booking.id}>
+                  <TableRow key={booking.id} className="hover:bg-muted/30 transition-colors">
+                    {/* Customer */}
                     <TableCell>
                       <div className="space-y-1">
                         <div className="flex items-center">
@@ -94,34 +109,50 @@ const BookingsList = ({ bookings }: { bookings: Booking[] }) => {
                         )}
                       </div>
                     </TableCell>
+
+                    {/* Property */}
                     <TableCell>
                       <div className="flex items-center">
                         <Building className="h-4 w-4 mr-2 text-muted-foreground" />
                         <div>
                           <p className="font-medium">{booking.propertyName}</p>
-                          <p className="text-sm text-muted-foreground">ID: {booking.propertyId}</p>
+                          <p className="text-xs text-muted-foreground">ID: {booking.propertyId}</p>
                         </div>
                       </div>
                     </TableCell>
+
+                    {/* Visit Info */}
                     <TableCell>
                       <div className="flex items-center">
                         <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
                         <div>
-                          <p className="font-medium">{new Date(booking.visitDate).toLocaleDateString()}</p>
+                          <p className="font-medium">
+                            {new Date(booking.visitDate).toLocaleDateString()}
+                          </p>
                           <p className="text-sm text-muted-foreground">{booking.visitTime}</p>
                         </div>
                       </div>
                     </TableCell>
+
+                    {/* Plan */}
                     <TableCell>
-                      <Badge variant="outline">{booking.planType}</Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant={getStatusColor(booking.status)} className="flex items-center gap-1 w-fit">
-                        {getStatusIcon(booking.status)}
-                        {booking.status + booking.status}
-                        {/* .charAt(1).toUpperCase() + .slice(1) */}
+                      <Badge variant="outline" className="capitalize">
+                        {booking.planType}
                       </Badge>
                     </TableCell>
+
+                    {/* Status */}
+                    <TableCell>
+                      <Badge
+                        variant={getStatusColor(booking.status)}
+                        className="flex items-center gap-1 w-fit capitalize"
+                      >
+                        {getStatusIcon(booking.status)}
+                        {formatStatus(booking.status)}
+                      </Badge>
+                    </TableCell>
+
+                    {/* Contact */}
                     <TableCell>
                       <div className="space-y-1">
                         <div className="flex items-center">
@@ -134,14 +165,16 @@ const BookingsList = ({ bookings }: { bookings: Booking[] }) => {
                         </div>
                       </div>
                     </TableCell>
+
+                    {/* Actions */}
                     <TableCell>
-                      <div className="flex">
-                        {booking.status === 'pending' && (
-                          <Button variant="default" size="sm">
-                            Confirm
-                          </Button>
-                        )}
-                      </div>
+                      {booking.status === "pending" ? (
+                        <Button variant="default" size="sm" className="h-8">
+                          Confirm
+                        </Button>
+                      ) : (
+                        <span className="text-sm text-muted-foreground">—</span>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -149,10 +182,12 @@ const BookingsList = ({ bookings }: { bookings: Booking[] }) => {
             </Table>
           </div>
         ) : (
-          <div className="text-center py-8">
-            <Calendar className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-            <p className="text-text-secondary">No bookings yet</p>
-            <p className="text-sm text-muted-foreground">Bookings will appear here when customers submit the booking form.</p>
+          <div className="text-center py-10">
+            <Calendar className="h-10 w-10 mx-auto text-muted-foreground mb-3" />
+            <p className="text-muted-foreground font-medium">No bookings yet</p>
+            <p className="text-sm text-muted-foreground/80">
+              Bookings will appear here when customers submit the booking form.
+            </p>
           </div>
         )}
       </CardContent>

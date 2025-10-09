@@ -19,8 +19,8 @@ const AdminLogin = () => {
 
   // Dummy admin credentials
   const ADMIN_CREDENTIALS = {
-    username: "admin@spaceonclick.com",
-    password: "admin123"
+    username: "admin@gmail.com",
+    password: "admin"
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

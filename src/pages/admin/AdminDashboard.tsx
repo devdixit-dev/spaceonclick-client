@@ -160,7 +160,7 @@ const AdminDashboard = () => {
   };
 
   const handlePropertyUpdated = (updatedProperty: unknown) => {
-    setProperties(prev => prev.map(p => p.id === updatedProperty.id ? updatedProperty : p));
+    setProperties(prev => prev.map(p => p?.id === updatedProperty?.id ? updatedProperty : p));
     setEditingProperty(null);
   };
 
@@ -228,26 +228,6 @@ const AdminDashboard = () => {
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        {/* Statistics Cards */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {stats.map((stat, index) => (
-            <Card key={index}>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-medium text-text-secondary">{stat.title}</p>
-                    <p className="text-2xl font-bold text-text-primary">{stat.value}</p>
-                    <p className="text-xs text-primary">{stat.trend} from last month</p>
-                  </div>
-                  <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center">
-                    <stat.icon className="h-6 w-6 text-primary" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div> */}
-
         {/* Main Content Tabs */}
         <Tabs defaultValue="bookings" className="space-y-6" value={editingProperty ? "add-property" : undefined}>
           <TabsList className="grid w-full grid-cols-3 lg:w-auto">
