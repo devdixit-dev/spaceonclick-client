@@ -4,25 +4,23 @@ import { MapPin, Users, Wifi, Car } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface PropertyCardProps {
-  id: string;
-  name: string;
-  images: string[];
+  propertyID: string;
+  propertyName: string;
+  // images: string[];
   description: string;
-  sqft: number;
+  size: number;
   location: string;
   amenities: string[];
-  propertyId: string;
 }
 
 const PropertyCard = ({ 
-  id, 
-  name, 
-  images, 
+  propertyID, 
+  propertyName, 
+  // images, 
   description, 
-  sqft, 
+  size, 
   location, 
-  amenities, 
-  propertyId 
+  amenities,
 }: PropertyCardProps) => {
   return (
     <Card className="overflow-hidden shadow-medium hover:shadow-large transition-all duration-300 group">
@@ -30,7 +28,7 @@ const PropertyCard = ({
         {/* Images */}
         <div className="relative h-64 md:h-full min-h-[300px]">
           <div className="grid grid-cols-2 gap-1 h-full">
-            <img 
+            {/* <img 
               src={images[0]} 
               alt={`${name} - Main view`}
               className="w-full h-full object-cover rounded-tl-lg"
@@ -45,7 +43,7 @@ const PropertyCard = ({
                 src={images[2] || images[0]} 
                 alt={`${name} - Third view`}
                 className="w-full h-full object-cover"
-              />
+              /> */}
             </div>
           </div>
         </div>
@@ -55,10 +53,10 @@ const PropertyCard = ({
           <CardContent className="p-6 flex-1">
             <div className="mb-4">
               <h3 className="text-xl font-bold text-text-primary mb-2 font-effra">
-                {name}
+                {propertyName}
               </h3>
               <div className="text-sm text-text-muted mb-1">
-                Property ID: {propertyId}
+                Property ID: {propertyID}
               </div>
               <div className="flex items-center text-text-secondary mb-3">
                 <MapPin className="h-4 w-4 mr-1" />
@@ -74,7 +72,7 @@ const PropertyCard = ({
               <div className="flex items-center mb-2">
                 <Users className="h-4 w-4 mr-2 text-primary" />
                 <span className="font-medium text-text-primary">
-                  {sqft.toLocaleString()} sq ft
+                  {size} sq ft
                 </span>
               </div>
             </div>
@@ -97,19 +95,19 @@ const PropertyCard = ({
           </CardContent>
 
           <CardFooter className="p-6 pt-0 flex flex-col sm:flex-row gap-3">
-            <Link to={`/property/${id}`} className="flex-1">
+            <Link to={`/property/${propertyID}`} className="flex-1">
               <Button variant="outline-professional" className="w-full">
                 More Info
               </Button>
             </Link>
-            <Link to={`/booking?property=${id}`} className="flex-1">
+            {/* <Link to={`/booking?property=${id}`} className="flex-1">
               <Button variant="professional" className="w-full">
                 Book Now
               </Button>
-            </Link>
+            </Link> */}
           </CardFooter>
         </div>
-      </div>
+      {/* </div> */}
     </Card>
   );
 };

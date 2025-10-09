@@ -4,13 +4,34 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Building, Users, Headphones } from "lucide-react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 // Import office images
 import officeSpace1 from "@/assets/office-space-1.jpg";
 import officeSpace2 from "@/assets/office-space-2.jpg";
 import officeSpace3 from "@/assets/office-space-3.jpg";
+import { useEffect, useState } from "react";
 
 const Home = () => {
+  const [property, setProperty] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchProperties = async () => {
+        const { data } = (await axios.get(`${import.meta.env.VITE_BACKEND_URL}/`, {})).data;
+        setProperty(data);
+      }
+      await fetchProperties();
+    }
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (property.length > 0) {
+      console.log("Fetched properties:", property);
+    }
+  }, [property]);
+
   const properties = [
     {
       id: "1",
@@ -23,7 +44,7 @@ const Home = () => {
       propertyId: "ES-001"
     },
     {
-      id: "2", 
+      id: "2",
       name: "Modern Collaborative Hub",
       images: [officeSpace2, officeSpace3, officeSpace1],
       description: "Open-plan workspace designed for creative teams and startups. Flexible layout with collaborative zones and state-of-the-art technology infrastructure.",
@@ -65,7 +86,7 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      
+
       {/* Hero Section */}
       <section className="py-24 bg-gradient-subtle">
         <div className="container mx-auto px-4 text-center">
@@ -74,7 +95,7 @@ const Home = () => {
             <span className="block text-primary">For Modern Business</span>
           </h1>
           <p className="text-xl text-text-secondary max-w-2xl mx-auto mb-8 leading-relaxed">
-            Discover professionally designed office spaces that inspire productivity and success. 
+            Discover professionally designed office spaces that inspire productivity and success.
             Flexible terms, premium amenities, and prime locations.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -104,7 +125,7 @@ const Home = () => {
               We provide more than just office space - we deliver an ecosystem for business success.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <div key={index} className="text-center group">
@@ -134,10 +155,10 @@ const Home = () => {
               Explore our carefully curated selection of premium office spaces, each designed to meet different business needs.
             </p>
           </div>
-          
+
           <div className="space-y-8">
-            {properties.map((property) => (
-              <PropertyCard key={property.id} {...property} />
+            {property.map((property) => (
+              <PropertyCard key={property.propertyId} {...property} />
             ))}
           </div>
         </div>
