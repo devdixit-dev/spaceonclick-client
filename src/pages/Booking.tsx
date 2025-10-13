@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import Navbar from "@/components/Navbar";
@@ -14,11 +14,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Check, MapPin, Users, CalendarIcon, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-
-// Import office images
-import officeSpace1 from "@/assets/office-space-1.jpg";
-import officeSpace2 from "@/assets/office-space-2.jpg";
-import officeSpace3 from "@/assets/office-space-3.jpg";
+import axios from "axios";
 
 const Booking = () => {
   const [searchParams] = useSearchParams();
@@ -28,6 +24,7 @@ const Booking = () => {
   const [selectedPlan, setSelectedPlan] = useState("");
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState("");
+  const [offices, setOffices] = useState([]);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -42,35 +39,15 @@ const Booking = () => {
     "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"
   ];
 
-  const offices = [
-    {
-      id: "1",
-      name: "Executive Suite Premium",
-      image: officeSpace1,
-      propertyId: "ES-001",
-      sqft: 1200,
-      location: "Downtown Business District",
-      monthlyRate: "$2,500"
-    },
-    {
-      id: "2", 
-      name: "Modern Collaborative Hub",
-      image: officeSpace2,
-      propertyId: "MCH-002",
-      sqft: 800,
-      location: "Tech Quarter",
-      monthlyRate: "$1,800"
-    },
-    {
-      id: "3",
-      name: "Private Office Elite",
-      image: officeSpace3,
-      propertyId: "POE-003",
-      sqft: 600,
-      location: "Financial District",
-      monthlyRate: "$2,200"
+  useEffect(() => {
+    const fetchOffices = async () => {
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}`, {});
+      console.log(await response.data.data)
+      setOffices(await response.data.data);
     }
-  ];
+    fetchOffices();
+  }, []);
+  
 
   const plans = [
     { id: "monthly", name: "Monthly", description: "Flexible month-to-month rental" },
@@ -121,6 +98,20 @@ const Booking = () => {
       customer: formData,
       timestamp: new Date().toISOString()
     };
+
+    const selectedData = {
+      formData,
+      selectedOffice,
+      selectedPlan,
+      selectedDate,
+      selectedTime
+    };
+
+    const sendBooking = async () => {
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/booking`, { selectedData }, { withCredentials: true });
+      console.log(res);
+    }
+    sendBooking();
     
     localStorage.setItem("bookingData", JSON.stringify(bookingData));
     navigate("/booking/thank-you");
@@ -154,30 +145,30 @@ const Booking = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {offices.map((office) => (
                     <div
-                      key={office.id}
+                      key={office._id}
                       className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
-                        selectedOffice === office.id 
+                        selectedOffice === office._id 
                           ? "border-primary bg-accent" 
                           : "border-border hover:border-primary/50"
                       }`}
-                      onClick={() => setSelectedOffice(office.id)}
+                      onClick={() => setSelectedOffice(office._id)}
                     >
                       <img 
                         src={office.image} 
-                        alt={office.name}
+                        alt={office.propertyName}
                         className="w-full h-32 object-cover rounded-md mb-3"
                       />
-                      <h3 className="font-semibold text-text-primary mb-1">{office.name}</h3>
-                      <p className="text-sm text-text-muted mb-2">ID: {office.propertyId}</p>
+                      <h3 className="font-semibold text-text-primary mb-1">{office.propertyName}</h3>
+                      <p className="text-sm text-text-muted mb-2">ID: {office.propertyID}</p>
                       <div className="flex items-center text-sm text-text-secondary mb-2">
                         <MapPin className="h-3 w-3 mr-1" />
                         {office.location}
                       </div>
                       <div className="flex items-center text-sm text-text-secondary mb-2">
                         <Users className="h-3 w-3 mr-1" />
-                        {office.sqft.toLocaleString()} sq ft
+                        {office.size} sq ft
                       </div>
-                      <div className="text-primary font-semibold">{office.monthlyRate}/month</div>
+                      <div className="text-primary font-semibold">{office.price}/month</div>
                       {selectedOffice === office.id && (
                         <div className="mt-2 flex items-center text-primary">
                           <Check className="h-4 w-4 mr-1" />
