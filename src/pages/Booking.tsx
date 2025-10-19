@@ -106,6 +106,7 @@ const Booking = () => {
       selectedDate,
       selectedTime
     };
+    console.log(`Frontend: ${selectedData}`);
 
     const sendBooking = async () => {
       const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/booking`, { selectedData }, { withCredentials: true });
