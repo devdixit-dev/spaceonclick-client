@@ -42,18 +42,10 @@ const Booking = () => {
   useEffect(() => {
     const fetchOffices = async () => {
       const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}`, {});
-      console.log(await response.data.data)
       setOffices(await response.data.data);
     }
     fetchOffices();
   }, []);
-  
-
-  const plans = [
-    { id: "monthly", name: "Monthly", description: "Flexible month-to-month rental" },
-    { id: "quarterly", name: "Quarterly", description: "3-month commitment with 5% discount" },
-    { id: "annual", name: "Annual", description: "12-month commitment with 15% discount" }
-  ];
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -62,10 +54,10 @@ const Booking = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!selectedOffice || !selectedPlan) {
+    if (!selectedOffice) {
       toast({
         title: "Missing Information",
-        description: "Please select both an office space and rental plan.",
+        description: "Please select an office space",
         variant: "destructive"
       });
       return;
@@ -92,7 +84,6 @@ const Booking = () => {
     // Store booking data and navigate to thank you page
     const bookingData = {
       office: offices.find(o => o.id === selectedOffice),
-      plan: plans.find(p => p.id === selectedPlan),
       visitDate: selectedDate,
       visitTime: selectedTime,
       customer: formData,
@@ -106,7 +97,8 @@ const Booking = () => {
       selectedDate,
       selectedTime
     };
-    console.log(`Frontend: ${selectedData}`);
+
+    console.log(selectedData.formData, selectedData.selectedOffice, selectedData.selectedPlan, selectedData.selectedDate, selectedData.selectedTime);
 
     const sendBooking = async () => {
       const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/booking`, { selectedData }, { withCredentials: true });
@@ -182,45 +174,11 @@ const Booking = () => {
               </CardContent>
             </Card>
 
-            {/* Plan Selection */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <span className="bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">2</span>
-                  Choose Your Plan
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {plans.map((plan) => (
-                    <div
-                      key={plan.id}
-                      className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
-                        selectedPlan === plan.id 
-                          ? "border-primary bg-accent" 
-                          : "border-border hover:border-primary/50"
-                      }`}
-                      onClick={() => setSelectedPlan(plan.id)}
-                    >
-                      <h3 className="font-semibold text-text-primary mb-2">{plan.name}</h3>
-                      <p className="text-sm text-text-secondary mb-3">{plan.description}</p>
-                      {selectedPlan === plan.id && (
-                        <div className="flex items-center text-primary">
-                          <Check className="h-4 w-4 mr-1" />
-                          Selected
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
             {/* Date and Time Selection */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <span className="bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">3</span>
+                  <span className="bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">2</span>
                   Schedule Your Visit
                 </CardTitle>
               </CardHeader>
@@ -282,7 +240,7 @@ const Booking = () => {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <span className="bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">4</span>
+                  <span className="bg-primary text-primary-foreground rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">3</span>
                   Your Information
                 </CardTitle>
               </CardHeader>
