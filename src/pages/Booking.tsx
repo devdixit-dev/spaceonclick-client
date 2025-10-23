@@ -51,14 +51,15 @@ const Booking = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    // Step 1: Validation
     if (!selectedOffice) {
       toast({
         title: "Missing Information",
         description: "Please select an office space",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
@@ -67,53 +68,80 @@ const Booking = () => {
       toast({
         title: "Missing Information",
         description: "Please select both a date and time for your visit.",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
 
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
       toast({
-        title: "Missing Information", 
+        title: "Missing Information",
         description: "Please fill in all required fields.",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
 
-    // Store booking data and navigate to thank you page
-    const bookingData = {
-      office: offices.find(o => o.id === selectedOffice),
-      visitDate: selectedDate,
-      visitTime: selectedTime,
-      customer: formData,
-      timestamp: new Date().toISOString()
-    };
-
-    const selectedData = {
-      formData,
-      selectedOffice,
-      selectedPlan,
-      selectedDate,
-      selectedTime
-    };
-
-    console.log(selectedData.formData, selectedData.selectedOffice, selectedData.selectedPlan, selectedData.selectedDate, selectedData.selectedTime);
-
-    const sendBooking = async () => {
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/booking`, { selectedData }, { withCredentials: true });
-      console.log(res);
+    // Step 2: Find office details
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const office = offices.find((o: any) => o._id === selectedOffice);
+    if (!office) {
+      toast({
+        title: "Error",
+        description: "Invalid office selection.",
+        variant: "destructive",
+      });
+      return;
     }
-    sendBooking();
-    
-    localStorage.setItem("bookingData", JSON.stringify(bookingData));
-    navigate("/booking/thank-you");
+
+    // Step 3: Prepare payload for backend
+    const bookingPayload = {
+      propertyName: office.propertyName,
+      plan: selectedPlan || "default", // You can adjust this later
+      date: selectedDate,
+      time: selectedTime,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      contactNumber: formData.phone,
+      companyName: formData.company,
+      details: formData.additionalDetails,
+    };
+
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/booking`,
+        bookingPayload,
+        { withCredentials: true }
+      );
+
+      if (res.data.success) {
+        toast({
+          title: "Booking Confirmed",
+          description: res.data.message,
+        });
+
+        // Optional: Save locally and navigate
+        localStorage.setItem("bookingData", JSON.stringify(res.data.data));
+        navigate("/booking/thank-you");
+      }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      const message = err.response?.data?.message || "Something went wrong!";
+      toast({
+        title: "Booking Failed",
+        description: message,
+        variant: "destructive",
+      });
+      console.error("Booking Error:", err);
+    }
   };
+
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      
+
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
@@ -139,15 +167,14 @@ const Booking = () => {
                   {offices.map((office) => (
                     <div
                       key={office._id}
-                      className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${
-                        selectedOffice === office._id 
-                          ? "border-primary bg-accent" 
+                      className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${selectedOffice === office._id
+                          ? "border-primary bg-accent"
                           : "border-border hover:border-primary/50"
-                      }`}
+                        }`}
                       onClick={() => setSelectedOffice(office._id)}
                     >
-                      <img 
-                        src={office.image} 
+                      <img
+                        src={office.image}
                         alt={office.propertyName}
                         className="w-full h-32 object-cover rounded-md mb-3"
                       />
@@ -265,7 +292,7 @@ const Booking = () => {
                     />
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="email">Email Address *</Label>
