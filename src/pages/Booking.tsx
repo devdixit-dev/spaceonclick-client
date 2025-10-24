@@ -21,7 +21,6 @@ const Booking = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [selectedOffice, setSelectedOffice] = useState(searchParams.get("property") || "");
-  const [selectedPlan, setSelectedPlan] = useState("");
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState("");
   const [offices, setOffices] = useState([]);
@@ -97,7 +96,6 @@ const Booking = () => {
     // Step 3: Prepare payload for backend
     const bookingPayload = {
       propertyName: office.propertyName,
-      plan: selectedPlan || "default", // You can adjust this later
       date: selectedDate,
       time: selectedTime,
       firstName: formData.firstName,
@@ -125,7 +123,7 @@ const Booking = () => {
         localStorage.setItem("bookingData", JSON.stringify(res.data.data));
         navigate("/booking/thank-you");
       }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const message = err.response?.data?.message || "Something went wrong!";
       toast({
@@ -133,7 +131,6 @@ const Booking = () => {
         description: message,
         variant: "destructive",
       });
-      console.error("Booking Error:", err);
     }
   };
 
@@ -168,8 +165,8 @@ const Booking = () => {
                     <div
                       key={office._id}
                       className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${selectedOffice === office._id
-                          ? "border-primary bg-accent"
-                          : "border-border hover:border-primary/50"
+                        ? "border-primary bg-accent"
+                        : "border-border hover:border-primary/50"
                         }`}
                       onClick={() => setSelectedOffice(office._id)}
                     >
@@ -213,7 +210,7 @@ const Booking = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Date Selection */}
                   <div>
-                    <Label className="text-sm font-medium mb-3 block">Select Date *</Label>
+                    <Label className="text-sm font-medium mb-3 block" htmlFor="selectedDate">Select Date *</Label>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
@@ -222,6 +219,7 @@ const Booking = () => {
                             "w-full justify-start text-left font-normal h-12",
                             !selectedDate && "text-muted-foreground"
                           )}
+                          id="selectedDate"
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
                           {selectedDate ? format(selectedDate, "PPP") : <span>Pick a date</span>}
@@ -231,20 +229,26 @@ const Booking = () => {
                         <Calendar
                           mode="single"
                           selected={selectedDate}
-                          onSelect={setSelectedDate}
+                          onSelect={(date) => {
+                            if (date) {
+                              const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+                              setSelectedDate(localDate);
+                            }
+                          }}
                           disabled={(date) => date < new Date() || date < new Date("1900-01-01")}
                           initialFocus
                           className={cn("p-3 pointer-events-auto")}
                         />
+
                       </PopoverContent>
                     </Popover>
                   </div>
 
                   {/* Time Selection */}
                   <div>
-                    <Label className="text-sm font-medium mb-3 block">Select Time *</Label>
+                    <Label className="text-sm font-medium mb-3 block" htmlFor="selectedTime">Select Time *</Label>
                     <Select value={selectedTime} onValueChange={setSelectedTime}>
-                      <SelectTrigger className="h-12">
+                      <SelectTrigger className="h-12" id="selectedTime">
                         <div className="flex items-center">
                           <Clock className="mr-2 h-4 w-4 text-muted-foreground" />
                           <SelectValue placeholder="Choose a time slot" />
@@ -302,6 +306,7 @@ const Booking = () => {
                       value={formData.email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
                       required
+                      autoComplete="false"
                     />
                   </div>
                   <div>
@@ -312,6 +317,7 @@ const Booking = () => {
                       value={formData.phone}
                       onChange={(e) => handleInputChange("phone", e.target.value)}
                       required
+                      autoComplete="false"
                     />
                   </div>
                 </div>
@@ -322,6 +328,7 @@ const Booking = () => {
                     id="company"
                     value={formData.company}
                     onChange={(e) => handleInputChange("company", e.target.value)}
+                    autoComplete="false"
                   />
                 </div>
 
