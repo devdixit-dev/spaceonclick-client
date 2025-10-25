@@ -7,12 +7,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Phone, Mail, ArrowLeft } from "lucide-react";
 
 const ThankYou = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [bookingData, setBookingData] = useState<any>(null);
 
   useEffect(() => {
     const data = localStorage.getItem("bookingData");
     if (data) {
-      setBookingData(JSON.parse(data));
+      setBookingData(JSON.parse(data));      
     }
   }, []);
 
@@ -37,20 +38,29 @@ const ThankYou = () => {
               <CardContent className="p-6">
                 <h3 className="font-semibold text-text-primary mb-4">Booking Summary</h3>
                 <div className="space-y-2 text-sm">
-                  <div>
+                  {/* <div>
                     <span className="font-medium">Office Space:</span> {bookingData.office?.name}
-                  </div>
+                  </div> */}
                   <div>
-                    <span className="font-medium">Property ID:</span> {bookingData.office?.propertyId}
+                    <span className="font-medium">Property ID:</span> {bookingData.propertyID}
                   </div>
-                  <div>
+                  {/* <div>
                     <span className="font-medium">Plan:</span> {bookingData.plan?.name}
+                  </div> */}
+                  <div>
+                    <span className="font-medium">Contact Person:</span> {bookingData.firstName} {bookingData.lastName}
                   </div>
                   <div>
-                    <span className="font-medium">Contact:</span> {bookingData.customer?.firstName} {bookingData.customer?.lastName}
+                    <span className="font-medium">Email:</span> {bookingData.email}
                   </div>
                   <div>
-                    <span className="font-medium">Email:</span> {bookingData.customer?.email}
+                    <span className="font-medium">Date:</span> {bookingData.date}
+                  </div>
+                  <div>
+                    <span className="font-medium">Property ID:</span> {bookingData.propertyID}
+                  </div>
+                  <div>
+                    <span className="font-medium">Property ID:</span> {bookingData.propertyID}
                   </div>
                 </div>
               </CardContent>
@@ -75,11 +85,11 @@ const ThankYou = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <div className="flex items-center justify-center">
                 <Phone className="h-4 w-4 mr-2 text-primary" />
-                <span className="text-text-secondary">+1 (555) 123-4567</span>
+                <span className="text-text-secondary">+91 12345 67890</span>
               </div>
               <div className="flex items-center justify-center">
                 <Mail className="h-4 w-4 mr-2 text-primary" />
-                <span className="text-text-secondary">hello@Space On Click.com</span>
+                <span className="text-text-secondary">hello@spaceonclick.com</span>
               </div>
             </div>
           </div>
@@ -92,7 +102,7 @@ const ThankYou = () => {
               </Button>
             </Link>
             <Button variant="outline-professional" asChild>
-              <a href="mailto:hello@Space On Click.com">
+              <a href="mailto:hello@spaceonclick.com">
                 Contact Support
               </a>
             </Button>
