@@ -13,7 +13,8 @@ const ThankYou = () => {
   useEffect(() => {
     const data = localStorage.getItem("bookingData");
     if (data) {
-      setBookingData(JSON.parse(data));      
+      setBookingData(JSON.parse(data));
+      localStorage.clear();
     }
   }, []);
 
@@ -57,10 +58,7 @@ const ThankYou = () => {
                     <span className="font-medium">Date:</span> {bookingData.date}
                   </div>
                   <div>
-                    <span className="font-medium">Property ID:</span> {bookingData.propertyID}
-                  </div>
-                  <div>
-                    <span className="font-medium">Property ID:</span> {bookingData.propertyID}
+                    <span className="font-medium">Property ID:</span> {bookingData.time}
                   </div>
                 </div>
               </CardContent>

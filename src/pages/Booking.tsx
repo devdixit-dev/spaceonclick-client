@@ -96,7 +96,7 @@ const Booking = () => {
     // Step 3: Prepare payload for backend
     const bookingPayload = {
       propertyName: office.propertyName,
-      date: selectedDate,
+      date: selectedDate.toLocaleDateString(),
       time: selectedTime,
       firstName: formData.firstName,
       lastName: formData.lastName,
