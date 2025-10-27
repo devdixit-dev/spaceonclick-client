@@ -6,17 +6,21 @@ import { Link } from "react-router-dom";
 interface PropertyCardProps {
   propertyID: string;
   propertyName: string;
-  // images: string[];
+  images: string[];
   description: string;
   size: number;
   location: string;
   amenities: string[];
 }
 
+import office1 from '@/assets/9/1.jpeg'
+import office2 from '@/assets/9/4.jpeg'
+import office3 from '@/assets/9/3.jpeg'
+
 const PropertyCard = ({ 
   propertyID, 
   propertyName, 
-  // images, 
+  images,
   description, 
   size, 
   location, 
@@ -28,22 +32,22 @@ const PropertyCard = ({
         {/* Images */}
         <div className="relative h-64 md:h-full min-h-[300px]">
           <div className="grid grid-cols-2 gap-1 h-full">
-            {/* <img 
-              src={images[0]} 
-              alt={`${name} - Main view`}
+            <img 
+              src={office1} 
+              alt={`${propertyName} - Main view`}
               className="w-full h-full object-cover rounded-tl-lg"
             />
             <div className="grid grid-rows-2 gap-1">
               <img 
-                src={images[1]} 
-                alt={`${name} - Secondary view`}
+                src={office2} 
+                alt={`${propertyName} - Secondary view`}
                 className="w-full h-full object-cover rounded-tr-lg"
               />
               <img 
-                src={images[2] || images[0]} 
-                alt={`${name} - Third view`}
+                src={office3}
+                alt={`${propertyName} - Third view`}
                 className="w-full h-full object-cover"
-              /> */}
+              />
             </div>
           </div>
         </div>
@@ -107,7 +111,7 @@ const PropertyCard = ({
             </Link> */}
           </CardFooter>
         </div>
-      {/* </div> */}
+      </div>
     </Card>
   );
 };
