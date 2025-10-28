@@ -6,14 +6,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Users, Wifi, Car, Coffee, Shield, ArrowLeft } from "lucide-react";
 
-// Import office images
-import officeSpace1 from "@/assets/office-space-1.jpg";
-import officeSpace2 from "@/assets/office-space-2.jpg";
-import officeSpace3 from "@/assets/office-space-3.jpg";
+// IMPORT 9 NO OFFICES
+import office1 from '@/assets/9/1.jpeg'
+import office2 from '@/assets/9/2.jpeg'
+import office3 from '@/assets/9/3.jpeg'
 import { useEffect, useState } from "react";
 import axiosInstance from "@/api/axios";
 
 const PropertyDetail = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [fetchedproperty, setFetchedProperty] = useState<any | null>(null);
   const { id } = useParams();
 
@@ -68,21 +69,21 @@ const PropertyDetail = () => {
           <div className="lg:col-span-2">
             {/* Image Gallery */}
             <div className="grid grid-cols-2 gap-2 mb-8">
-              {/* <img
-                src={property.images[0]}
-                alt={`${property.name} - Main view`}
+              <img
+                src={office1}
+                alt={`Main view`}
                 className="w-full h-64 object-cover rounded-lg col-span-2"
               />
               <img
-                src={property.images[1]}
-                alt={`${property.name} - Secondary view`}
+                src={office2}
+                alt={`Secondary view`}
                 className="w-full h-32 object-cover rounded-lg"
               />
               <img
-                src={property.images[2]}
-                alt={`${property.name} - Third view`}
+                src={office3}
+                alt={`Third view`}
                 className="w-full h-32 object-cover rounded-lg"
-              /> */}
+              />
             </div>
 
             {/* Property Info */}
