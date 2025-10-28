@@ -19,6 +19,8 @@ import {
   CheckCircle,
   XCircle,
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface Booking {
   id: string;
@@ -38,7 +40,7 @@ interface Booking {
   createdAt: string;
 }
 
-const BookingsList = ({ bookings }: { bookings: Booking[] }) => {
+const BookingsList = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "confirmed":
@@ -69,6 +71,17 @@ const BookingsList = ({ bookings }: { bookings: Booking[] }) => {
     return status.charAt(0).toUpperCase() + status.slice(1);
   };
 
+  const [bookings, setBookings] = useState([]);
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/bookings`, { withCredentials: true });
+      console.log(res.data.bookings)
+      setBookings(res.data.bookings)
+    }
+    fetchBookings();
+  }, []);
+
   return (
     <Card className="shadow-sm border border-border">
       <CardHeader>
@@ -87,7 +100,6 @@ const BookingsList = ({ bookings }: { bookings: Booking[] }) => {
                   <TableHead>Customer</TableHead>
                   <TableHead>Property</TableHead>
                   <TableHead>Visit Date & Time</TableHead>
-                  <TableHead>Plan</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Contact</TableHead>
                   <TableHead>Actions</TableHead>
@@ -96,16 +108,16 @@ const BookingsList = ({ bookings }: { bookings: Booking[] }) => {
 
               <TableBody>
                 {bookings.map((booking) => (
-                  <TableRow key={booking.id} className="hover:bg-muted/30 transition-colors">
+                  <TableRow key={booking.propertyId} className="hover:bg-muted/30 transition-colors">
                     {/* Customer */}
                     <TableCell>
                       <div className="space-y-1">
                         <div className="flex items-center">
                           <User className="h-4 w-4 mr-2 text-muted-foreground" />
-                          <span className="font-medium">{booking.customerName}</span>
+                          <span className="font-medium">{booking.firstName +" "+ booking.lastName}</span>
                         </div>
-                        {booking.company && (
-                          <p className="text-sm text-muted-foreground">{booking.company}</p>
+                        {booking.companyName && (
+                          <p className="text-sm text-muted-foreground">{booking.companyName}</p>
                         )}
                       </div>
                     </TableCell>
@@ -115,8 +127,8 @@ const BookingsList = ({ bookings }: { bookings: Booking[] }) => {
                       <div className="flex items-center">
                         <Building className="h-4 w-4 mr-2 text-muted-foreground" />
                         <div>
-                          <p className="font-medium">{booking.propertyName}</p>
-                          <p className="text-xs text-muted-foreground">ID: {booking.propertyId}</p>
+                          <p className="font-medium">{booking.propertyID.propertyName}</p>
+                          {/* <p className="text-xs text-muted-foreground">ID: {booking.propertyId}</p> */}
                         </div>
                       </div>
                     </TableCell>
@@ -127,18 +139,11 @@ const BookingsList = ({ bookings }: { bookings: Booking[] }) => {
                         <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
                         <div>
                           <p className="font-medium">
-                            {new Date(booking.visitDate).toLocaleDateString()}
+                            {new Date(booking.date).toLocaleDateString()}
                           </p>
-                          <p className="text-sm text-muted-foreground">{booking.visitTime}</p>
+                          <p className="text-sm text-muted-foreground">{booking.time}</p>
                         </div>
                       </div>
-                    </TableCell>
-
-                    {/* Plan */}
-                    <TableCell>
-                      <Badge variant="outline" className="capitalize">
-                        {booking.planType}
-                      </Badge>
                     </TableCell>
 
                     {/* Status */}
@@ -157,11 +162,11 @@ const BookingsList = ({ bookings }: { bookings: Booking[] }) => {
                       <div className="space-y-1">
                         <div className="flex items-center">
                           <Mail className="h-3 w-3 mr-1 text-muted-foreground" />
-                          <span className="text-sm">{booking.customerEmail}</span>
+                          <span className="text-sm">{booking.email}</span>
                         </div>
                         <div className="flex items-center">
                           <Phone className="h-3 w-3 mr-1 text-muted-foreground" />
-                          <span className="text-sm">{booking.customerPhone}</span>
+                          <span className="text-sm">+91{" " + booking.contactNumber}</span>
                         </div>
                       </div>
                     </TableCell>

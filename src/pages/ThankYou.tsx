@@ -42,9 +42,9 @@ const ThankYou = () => {
                   {/* <div>
                     <span className="font-medium">Office Space:</span> {bookingData.office?.name}
                   </div> */}
-                  <div>
+                  {/* <div>
                     <span className="font-medium">Property ID:</span> {bookingData.propertyID}
-                  </div>
+                  </div> */}
                   {/* <div>
                     <span className="font-medium">Plan:</span> {bookingData.plan?.name}
                   </div> */}
@@ -58,7 +58,7 @@ const ThankYou = () => {
                     <span className="font-medium">Date:</span> {bookingData.date}
                   </div>
                   <div>
-                    <span className="font-medium">Property ID:</span> {bookingData.time}
+                    <span className="font-medium">Time:</span> {bookingData.time}
                   </div>
                 </div>
               </CardContent>
