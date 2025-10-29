@@ -14,6 +14,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Check, MapPin, Users, CalendarIcon, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import image1 from '@/assets/9/1.jpeg';
+import image2 from '@/assets/12/1.jpeg';
+import image3 from '@/assets/12/4.jpeg';
 import axios from "axios";
 
 const Booking = () => {
@@ -32,6 +35,8 @@ const Booking = () => {
     company: "",
     additionalDetails: ""
   });
+
+  const images = [image1, image2, image3]
 
   const timeSlots = [
     "09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM",
@@ -171,12 +176,12 @@ const Booking = () => {
                       onClick={() => setSelectedOffice(office._id)}
                     >
                       <img
-                        src={office.image}
+                        src={images[1]}
                         alt={office.propertyName}
                         className="w-full h-32 object-cover rounded-md mb-3"
                       />
                       <h3 className="font-semibold text-text-primary mb-1">{office.propertyName}</h3>
-                      <p className="text-sm text-text-muted mb-2">ID: {office.propertyID}</p>
+                      {/* <p className="text-sm text-text-muted mb-2">ID: {office.propertyID}</p> */}
                       <div className="flex items-center text-sm text-text-secondary mb-2">
                         <MapPin className="h-3 w-3 mr-1" />
                         {office.location}
@@ -185,7 +190,7 @@ const Booking = () => {
                         <Users className="h-3 w-3 mr-1" />
                         {office.size} sq ft
                       </div>
-                      <div className="text-primary font-semibold">{office.price}/month</div>
+                      {/* <div className="text-primary font-semibold">{office.price}/month</div> */}
                       {selectedOffice === office.id && (
                         <div className="mt-2 flex items-center text-primary">
                           <Check className="h-4 w-4 mr-1" />

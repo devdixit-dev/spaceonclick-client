@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,39 +10,40 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Building, Edit, Trash2, Eye, MapPin, Square } from "lucide-react";
+import { Building, Edit, Trash2, MapPin, Square } from "lucide-react";
+import axios from "axios";
 
-interface Property {
-  id: string;
-  name: string;
-  location: string;
-  sqft: number;
-  monthlyRate: string;
-  status: string;
-  description?: string;
-  amenities?: string[];
-  createdAt?: string;
-  bookingsCount?: number;
-  nextAvailableDate?: string;
-}
+// interface Property {
+//   _id: string;
+//   name: string;
+//   location: string;
+//   size: number;
+//   isAvailable: boolean;
+//   description?: string;
+//   amenities?: string[];
+//   createdAt?: string;
+//   bookingsCount?: number;
+//   nextAvailableDate?: string;
+// }
 
-const PropertiesManagement = ({ 
-  properties, 
-  onEditProperty, 
-  onDeleteProperty 
-}: { 
-  properties: Property[];
-  onEditProperty: (property: Property) => void;
-  onDeleteProperty: (propertyId: string) => void;
-}) => {
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'available': return 'default';
-      case 'occupied': return 'secondary';
-      case 'maintenance': return 'destructive';
+const PropertiesManagement = () => {
+  const getStatusColor = (isAvailable: boolean) => {
+    switch (isAvailable) {
+      case true: return 'default';
+      case false: return 'secondary';
       default: return 'secondary';
     }
   };
+
+  const [Allproperties, setAllProperties] = useState([]);
+
+  useEffect(() => {
+    const fetchAllProperties = async () => {
+      const res = (await axios.get(`${import.meta.env.VITE_BACKEND_URL}/`, {})).data
+      setAllProperties(res.data);
+    }
+    fetchAllProperties();
+  }, []);
 
   return (
     <Card>
@@ -59,32 +60,29 @@ const PropertiesManagement = ({
               <TableRow>
                 <TableHead>Property Details</TableHead>
                 <TableHead>Location & Size</TableHead>
-                <TableHead>Pricing</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead>Bookings</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {properties.map((property) => (
-                <TableRow key={property.id}>
+              {Allproperties.map((property) => (
+                <TableRow key={property._id}>
                   <TableCell>
                     <div className="space-y-1">
                       <div className="flex items-center">
                         <Building className="h-4 w-4 mr-2 text-muted-foreground" />
-                        <span className="font-medium">{property.name}</span>
+                        <span className="font-medium">{property.propertyName}</span>
                       </div>
-                      <p className="text-sm text-muted-foreground">ID: {property.id}</p>
-                      {property.amenities && property.amenities.length > 0 && (
+                      {property.features && property.features.length > 0 && (
                         <div className="flex flex-wrap gap-1">
-                          {property.amenities.slice(0, 2).map((amenity, index) => (
+                          {property.amenities.slice(0, 2).map((features, index) => (
                             <Badge key={index} variant="outline" className="text-xs">
-                              {amenity}
+                              {features}
                             </Badge>
                           ))}
-                          {property.amenities.length > 2 && (
+                          {property.features.length > 2 && (
                             <Badge variant="outline" className="text-xs">
-                              +{property.amenities.length - 2} more
+                              +{property.features.length - 2} more
                             </Badge>
                           )}
                         </div>
@@ -99,52 +97,29 @@ const PropertiesManagement = ({
                       </div>
                       <div className="flex items-center">
                         <Square className="h-4 w-4 mr-2 text-muted-foreground" />
-                        <span className="text-sm">{property.sqft.toLocaleString()} sq ft</span>
+                        <span className="text-sm">{property.size.toLocaleString()} sq ft</span>
                       </div>
                     </div>
                   </TableCell>
                   <TableCell>
-                    <div className="font-medium text-lg">{property.monthlyRate}</div>
-                    <div className="text-sm text-muted-foreground">per month</div>
-                  </TableCell>
-                  <TableCell>
-                    <Badge variant={getStatusColor(property.status)}>
-                      {property.status}
+                    <Badge variant={getStatusColor(property.isAvailable)}>
+                      {property.isAvailable ? "Available" : "Not available"}
                     </Badge>
-                    {property.nextAvailableDate && (
-                      <p className="text-xs text-muted-foreground mt-1">
-                        Next available: {property.nextAvailableDate}
-                      </p>
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    <div className="text-center">
-                      <div className="font-medium">{property.bookingsCount || 0}</div>
-                      <div className="text-sm text-muted-foreground">bookings</div>
-                    </div>
                   </TableCell>
                   <TableCell>
                     <div className="flex gap-2">
-                      {/* <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         size="sm"
-                        onClick={() => {View details}}
-                      >
-                        <Eye className="h-3 w-3 mr-1" />
-                        View
-                      </Button> */}
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        onClick={() => onEditProperty(property)}
+                        onClick={() => { }}
                       >
                         <Edit className="h-3 w-3 mr-1" />
                         Edit
                       </Button>
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         size="sm"
-                        onClick={() => onDeleteProperty(property.id)}
+                        onClick={() => { }}
                       >
                         <Trash2 className="h-3 w-3 mr-1" />
                         Delete
