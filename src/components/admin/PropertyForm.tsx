@@ -7,15 +7,19 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Plus, Building, Upload, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import axios from "axios";
 
-const PropertyForm = ({ 
-  onPropertyAdded, 
+const PropertyForm = ({
+  onPropertyAdded,
   onPropertyUpdated,
   editProperty,
-  onCancelEdit 
-}: { 
+  onCancelEdit
+}: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onPropertyAdded: (property: any) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onPropertyUpdated?: (property: any) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   editProperty?: any;
   onCancelEdit?: () => void;
 }) => {
@@ -46,49 +50,66 @@ const PropertyForm = ({
     }
   }, [editProperty]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    // Prepare backend-compatible data
     const propertyData = {
-      id: editProperty ? editProperty.id : `PROP-${Date.now()}`,
-      name: formData.name,
+      propertyName: formData.name,
+      propertyID: editProperty ? editProperty.id : `PROP-${Date.now()}`,
       location: formData.location,
-      sqft: parseInt(formData.sqft),
-      monthlyRate: `$${formData.monthlyRate}`,
+      area: parseInt(formData.sqft),
+      price: parseFloat(formData.monthlyRate),
       description: formData.description,
-      amenities: formData.amenities.split(',').map(a => a.trim()).filter(Boolean),
-      status: formData.status,
-      images: formData.images,
-      createdAt: editProperty ? editProperty.createdAt : new Date().toISOString()
+      amenities: formData.amenities.split(",").map(a => a.trim()).filter(Boolean),
+      features: formData.status, // optional mapping
     };
 
-    if (editProperty && onPropertyUpdated) {
-      onPropertyUpdated(propertyData);
-    } else {
-      onPropertyAdded(propertyData);
-    }
-    
-    // Reset form only if not editing
-    if (!editProperty) {
-      setFormData({
-        name: "",
-        location: "",
-        sqft: "",
-        monthlyRate: "",
-        description: "",
-        amenities: "",
-        status: "Available",
-        images: []
-      });
-    } else {
-      onCancelEdit?.();
-    }
+    try {
+      // Send data to backend
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/admin/add`, propertyData);
 
-    toast({
-      title: editProperty ? "Property Updated" : "Property Added",
-      description: editProperty ? "Property has been updated successfully." : "New property has been added successfully.",
-    });
+      if (response.data.success) {
+        toast({
+          title: "Property Added",
+          description: "Property has been successfully added to the database.",
+        });
+
+        // Trigger parent handler
+        onPropertyAdded(response.data.data);
+
+        // Reset form only if not editing
+        if (!editProperty) {
+          setFormData({
+            name: "",
+            location: "",
+            sqft: "",
+            monthlyRate: "",
+            description: "",
+            amenities: "",
+            status: "Available",
+            images: []
+          });
+        } else {
+          onCancelEdit?.();
+        }
+      } else {
+        toast({
+          title: "Error",
+          description: response.data.message || "Failed to add property.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error adding property:", error);
+      toast({
+        title: "Server Error",
+        description: "Unable to connect to the server. Try again later.",
+        variant: "destructive",
+      });
+    }
   };
+
 
   const handleInputChange = (field: string, value: string | string[]) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -100,9 +121,9 @@ const PropertyForm = ({
       const reader = new FileReader();
       reader.onload = (event) => {
         const imageUrl = event.target?.result as string;
-        setFormData(prev => ({ 
-          ...prev, 
-          images: [...prev.images, imageUrl] 
+        setFormData(prev => ({
+          ...prev,
+          images: [...prev.images, imageUrl]
         }));
       };
       reader.readAsDataURL(file);
@@ -177,7 +198,7 @@ const PropertyForm = ({
               />
             </div>
           </div>
-          
+
           <div className="space-y-2">
             <Label htmlFor="description">Description</Label>
             <Textarea
@@ -188,7 +209,7 @@ const PropertyForm = ({
               rows={3}
             />
           </div>
-          
+
           <div className="space-y-2">
             <Label htmlFor="amenities">Amenities (comma-separated)</Label>
             <Input
@@ -198,7 +219,7 @@ const PropertyForm = ({
               placeholder="High-speed WiFi, Conference room, Kitchen, Parking"
             />
           </div>
-          
+
           <div className="space-y-2">
             <Label htmlFor="status">Status</Label>
             <Select value={formData.status} onValueChange={(value) => handleInputChange("status", value)}>
@@ -225,23 +246,23 @@ const PropertyForm = ({
                     </p>
                     <p className="text-xs text-text-secondary">PNG, JPG or JPEG</p>
                   </div>
-                  <input 
-                    id="image-upload" 
-                    type="file" 
-                    className="hidden" 
+                  <input
+                    id="image-upload"
+                    type="file"
+                    className="hidden"
                     accept="image/*"
                     multiple
                     onChange={handleImageUpload}
                   />
                 </label>
               </div>
-              
+
               {formData.images.length > 0 && (
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {formData.images.map((image, index) => (
                     <div key={index} className="relative group">
-                      <img 
-                        src={image} 
+                      <img
+                        src={image}
                         alt={`Property ${index + 1}`}
                         className="w-full h-24 object-cover rounded-lg border"
                       />
@@ -258,7 +279,7 @@ const PropertyForm = ({
               )}
             </div>
           </div>
-          
+
           <Button type="submit" className="w-full">
             <Building className="h-4 w-4 mr-2" />
             {editProperty ? "Update Property" : "Add Property"}

@@ -107,7 +107,7 @@ const BookingsList = () => {
 
               <TableBody>
                 {bookings.map((booking) => (
-                  <TableRow key={booking.propertyId} className="hover:bg-muted/30 transition-colors">
+                  <TableRow key={booking._id} className="hover:bg-muted/30 transition-colors">
                     {/* Customer */}
                     <TableCell>
                       <div className="space-y-1">
