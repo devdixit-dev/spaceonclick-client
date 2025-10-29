@@ -53,21 +53,33 @@ const PropertyForm = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Prepare backend-compatible data
-    const propertyData = {
-      propertyName: formData.name,
-      propertyID: editProperty ? editProperty.id : `PROP-${Date.now()}`,
-      location: formData.location,
-      area: parseInt(formData.sqft),
-      price: parseFloat(formData.monthlyRate),
-      description: formData.description,
-      amenities: formData.amenities.split(",").map(a => a.trim()).filter(Boolean),
-      features: formData.status, // optional mapping
-    };
+    // Use FormData for text + files
+    const propertyData = new FormData();
+    propertyData.append("propertyName", formData.name);
+    propertyData.append("propertyID", editProperty ? editProperty.id : `PROP-${Date.now()}`);
+    propertyData.append("location", formData.location);
+    propertyData.append("area", formData.sqft);
+    propertyData.append("price", formData.monthlyRate);
+    propertyData.append("description", formData.description);
+    propertyData.append("amenities", formData.amenities);
+    propertyData.append("features", formData.status);
+
+    // Attach files directly from file input
+    const fileInput = document.getElementById("image-upload") as HTMLInputElement;
+    if (fileInput?.files) {
+      for (let i = 0; i < fileInput.files.length; i++) {
+        propertyData.append("images", fileInput.files[i]);
+      }
+    }
 
     try {
-      // Send data to backend
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/admin/add`, propertyData);
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/admin/add`,
+        propertyData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
       if (response.data.success) {
         toast({
@@ -75,7 +87,6 @@ const PropertyForm = ({
           description: "Property has been successfully added to the database.",
         });
 
-        // Trigger parent handler
         onPropertyAdded(response.data.data);
 
         // Reset form only if not editing
@@ -88,7 +99,7 @@ const PropertyForm = ({
             description: "",
             amenities: "",
             status: "Available",
-            images: []
+            images: [],
           });
         } else {
           onCancelEdit?.();
@@ -109,6 +120,7 @@ const PropertyForm = ({
       });
     }
   };
+
 
 
   const handleInputChange = (field: string, value: string | string[]) => {
@@ -183,17 +195,6 @@ const PropertyForm = ({
                 value={formData.sqft}
                 onChange={(e) => handleInputChange("sqft", e.target.value)}
                 placeholder="1200"
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="monthlyRate">Monthly Rate ($)</Label>
-              <Input
-                id="monthlyRate"
-                type="number"
-                value={formData.monthlyRate}
-                onChange={(e) => handleInputChange("monthlyRate", e.target.value)}
-                placeholder="2500"
                 required
               />
             </div>
