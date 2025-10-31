@@ -76,6 +76,7 @@ const BookingsList = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/bookings`, { withCredentials: true });
+      console.log(res.data.bookings)
       setBookings(res.data.bookings)
     }
     fetchBookings();
@@ -126,7 +127,7 @@ const BookingsList = () => {
                       <div className="flex items-center">
                         <Building className="h-4 w-4 mr-2 text-muted-foreground" />
                         <div>
-                          <p className="font-medium">{booking.propertyID.propertyName}</p>
+                          <p className="font-medium">{booking?.propertyName}</p>
                           {/* <p className="text-xs text-muted-foreground">ID: {booking.propertyId}</p> */}
                         </div>
                       </div>

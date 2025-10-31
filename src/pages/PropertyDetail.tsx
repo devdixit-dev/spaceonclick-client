@@ -4,12 +4,8 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Users, Wifi, Car, Coffee, Shield, ArrowLeft } from "lucide-react";
+import { MapPin, Users, Wifi, Car, Coffee, Shield, ArrowLeft, Dot } from "lucide-react";
 
-// IMPORT 9 NO OFFICES
-import office1 from '@/assets/9/1.jpeg'
-import office2 from '@/assets/9/2.jpeg'
-import office3 from '@/assets/9/3.jpeg'
 import { useEffect, useState } from "react";
 import axiosInstance from "@/api/axios";
 
@@ -70,17 +66,17 @@ const PropertyDetail = () => {
             {/* Image Gallery */}
             <div className="grid grid-cols-2 gap-2 mb-8">
               <img
-                src={office1}
+                src={fetchedproperty.images[0]}
                 alt={`Main view`}
                 className="w-full h-64 object-cover rounded-lg col-span-2"
               />
               <img
-                src={office2}
+                src={fetchedproperty.images[1]}
                 alt={`Secondary view`}
                 className="w-full h-32 object-cover rounded-lg"
               />
               <img
-                src={office3}
+                src={fetchedproperty.images[2]}
                 alt={`Third view`}
                 className="w-full h-32 object-cover rounded-lg"
               />
@@ -93,9 +89,9 @@ const PropertyDetail = () => {
                   <h1 className="text-3xl font-bold text-text-primary mb-2 font-effra">
                     {fetchedproperty.propertyName}
                   </h1>
-                  <div className="text-text-muted mb-2">
+                  {/* <div className="text-text-muted mb-2">
                     Property ID: {fetchedproperty.propertyID}
-                  </div>
+                  </div> */}
                   <div className="flex items-center text-text-secondary mb-2">
                     <MapPin className="h-4 w-4 mr-2" />
                     {fetchedproperty.location}
@@ -106,17 +102,17 @@ const PropertyDetail = () => {
                 </Badge>
               </div>
 
-              <div className="flex items-center space-x-6 mb-6">
-                <div className="flex items-center">
+              {/* <div className="flex items-center space-x-6 mb-6"> */}
+                {/* <div className="flex items-center">
                   <Users className="h-5 w-5 mr-2 text-primary" />
                   <span className="font-medium text-text-primary">
-                    {fetchedproperty.area.toLocaleString()} sq ft
+                    {fetchedproperty.size.toLocaleString()} sq ft
                   </span>
-                </div>
-                <div className="text-2xl font-bold text-primary">
+                </div> */}
+                {/* <div className="text-2xl font-bold text-primary">
                   {fetchedproperty.price}/month
-                </div>
-              </div>
+                </div> */}
+              {/* </div> */}
 
               <p className="text-text-secondary leading-relaxed mb-6">
                 {fetchedproperty.description}
@@ -134,7 +130,7 @@ const PropertyDetail = () => {
                     const IconComponent = getIcon(amenity);
                     return (
                       <div key={index} className="flex items-center">
-                        <IconComponent className="h-4 w-4 mr-3 text-primary" />
+                        <Dot className="h-4 w-4 mr-3 text-primary" />
                         <span className="text-text-secondary">{amenity}</span>
                       </div>
                     );
@@ -148,12 +144,12 @@ const PropertyDetail = () => {
           <div className="lg:col-span-1">
             <Card className="sticky top-24">
               <CardContent className="p-6">
-                <div className="text-center mb-6">
+                {/* <div className="text-center mb-6">
                   <div className="text-3xl font-bold text-primary mb-2">
                     {fetchedproperty.price}
                   </div>
                   <div className="text-text-muted">per month</div>
-                </div>
+                </div> */}
 
                 <div className="space-y-4 mb-6">
                   <div className="flex justify-between">
@@ -162,7 +158,7 @@ const PropertyDetail = () => {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-text-secondary">Size:</span>
-                    <span className="font-medium text-text-primary">{fetchedproperty.size.toLocaleString()} sq ft</span>
+                    <span className="font-medium text-text-primary">{fetchedproperty.area.toLocaleString()} sq ft</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-text-secondary">Location:</span>
@@ -180,9 +176,9 @@ const PropertyDetail = () => {
                       Book This Space
                     </Button>
                   </Link>
-                  <Button variant="outline-professional" className="w-full">
+                  {/* <Button variant="outline-professional" className="w-full">
                     Schedule Tour
-                  </Button>
+                  </Button> */}
                 </div>
 
                 <div className="mt-6 p-4 bg-accent rounded-lg">

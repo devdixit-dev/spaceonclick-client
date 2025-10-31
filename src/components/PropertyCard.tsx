@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { MapPin, Users, Wifi, Car } from "lucide-react";
+import { MapPin, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface PropertyCardProps {
@@ -8,21 +8,17 @@ interface PropertyCardProps {
   propertyName: string;
   images: string[];
   description: string;
-  size: number;
+  area: number;
   location: string;
   amenities: string[];
 }
-
-import office1 from '@/assets/9/1.jpeg'
-import office2 from '@/assets/9/4.jpeg'
-import office3 from '@/assets/9/3.jpeg'
 
 const PropertyCard = ({ 
   propertyID, 
   propertyName, 
   images,
   description, 
-  size, 
+  area, 
   location, 
   amenities,
 }: PropertyCardProps) => {
@@ -33,18 +29,18 @@ const PropertyCard = ({
         <div className="relative h-64 md:h-full min-h-[300px]">
           <div className="grid grid-cols-2 gap-1 h-full">
             <img 
-              src={office1} 
+              src={images[0]} 
               alt={`${propertyName} - Main view`}
               className="w-full h-full object-cover rounded-tl-lg"
             />
             <div className="grid grid-rows-2 gap-1">
               <img 
-                src={office2} 
+                src={images[1]} 
                 alt={`${propertyName} - Secondary view`}
                 className="w-full h-full object-cover rounded-tr-lg"
               />
               <img 
-                src={office3}
+                src={images[2]}
                 alt={`${propertyName} - Third view`}
                 className="w-full h-full object-cover"
               />
@@ -76,7 +72,7 @@ const PropertyCard = ({
               <div className="flex items-center mb-2">
                 <Users className="h-4 w-4 mr-2 text-primary" />
                 <span className="font-medium text-text-primary">
-                  {size} sq ft
+                  {area} sq ft
                 </span>
               </div>
             </div>

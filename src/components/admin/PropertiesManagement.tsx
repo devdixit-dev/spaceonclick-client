@@ -40,6 +40,7 @@ const PropertiesManagement = () => {
   useEffect(() => {
     const fetchAllProperties = async () => {
       const res = (await axios.get(`${import.meta.env.VITE_BACKEND_URL}/`, {})).data
+      console.log(res.data)
       setAllProperties(res.data);
     }
     fetchAllProperties();
@@ -73,20 +74,6 @@ const PropertiesManagement = () => {
                         <Building className="h-4 w-4 mr-2 text-muted-foreground" />
                         <span className="font-medium">{property.propertyName}</span>
                       </div>
-                      {property.features && property.features.length > 0 && (
-                        <div className="flex flex-wrap gap-1">
-                          {property.amenities.slice(0, 2).map((features, index) => (
-                            <Badge key={index} variant="outline" className="text-xs">
-                              {features}
-                            </Badge>
-                          ))}
-                          {property.features.length > 2 && (
-                            <Badge variant="outline" className="text-xs">
-                              +{property.features.length - 2} more
-                            </Badge>
-                          )}
-                        </div>
-                      )}
                     </div>
                   </TableCell>
                   <TableCell>
@@ -97,7 +84,7 @@ const PropertiesManagement = () => {
                       </div>
                       <div className="flex items-center">
                         <Square className="h-4 w-4 mr-2 text-muted-foreground" />
-                        <span className="text-sm">{property.size.toLocaleString()} sq ft</span>
+                        <span className="text-sm">{property.area.toLocaleString()} sq ft</span>
                       </div>
                     </div>
                   </TableCell>

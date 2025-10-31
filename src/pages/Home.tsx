@@ -38,38 +38,38 @@ const Home = () => {
     }
   }, [property]);
 
-  const properties = [
-    {
-      id: "1",
-      name: "Executive Suite Premium",
-      images: [office1, office2, office3],
-      description: "A sophisticated executive office space perfect for established businesses. Features premium furnishings, private meeting areas, and stunning city views.",
-      sqft: 1200,
-      location: "Downtown Business District",
-      amenities: ["High-speed WiFi", "Meeting Rooms", "Reception Area", "Parking", "24/7 Access"],
-      propertyId: "ES-001"
-    },
-    {
-      id: "2",
-      name: "Modern Collaborative Hub",
-      // images: [officeSpace2, officeSpace3, officeSpace1],
-      description: "Open-plan workspace designed for creative teams and startups. Flexible layout with collaborative zones and state-of-the-art technology infrastructure.",
-      sqft: 800,
-      location: "Tech Quarter",
-      amenities: ["Fiber Internet", "Collaboration Tools", "Kitchen", "Lounge Area", "Printing"],
-      propertyId: "MCH-002"
-    },
-    {
-      id: "3",
-      name: "Private Office Elite",
-      // images: [officeSpace3, officeSpace1, officeSpace2],
-      description: "Exclusive private office space for discerning professionals. Includes dedicated phone booths, executive meeting room, and concierge services.",
-      sqft: 600,
-      location: "Financial District",
-      amenities: ["Concierge", "Private Entrance", "Phone Booths", "Catering", "Security"],
-      propertyId: "POE-003"
-    }
-  ];
+  // const properties = [
+  //   {
+  //     id: "1",
+  //     name: "Executive Suite Premium",
+  //     images: [office1, office2, office3],
+  //     description: "A sophisticated executive office space perfect for established businesses. Features premium furnishings, private meeting areas, and stunning city views.",
+  //     sqft: 1200,
+  //     location: "Downtown Business District",
+  //     amenities: ["High-speed WiFi", "Meeting Rooms", "Reception Area", "Parking", "24/7 Access"],
+  //     propertyId: "ES-001"
+  //   },
+  //   {
+  //     id: "2",
+  //     name: "Modern Collaborative Hub",
+  //     // images: [officeSpace2, officeSpace3, officeSpace1],
+  //     description: "Open-plan workspace designed for creative teams and startups. Flexible layout with collaborative zones and state-of-the-art technology infrastructure.",
+  //     sqft: 800,
+  //     location: "Tech Quarter",
+  //     amenities: ["Fiber Internet", "Collaboration Tools", "Kitchen", "Lounge Area", "Printing"],
+  //     propertyId: "MCH-002"
+  //   },
+  //   {
+  //     id: "3",
+  //     name: "Private Office Elite",
+  //     // images: [officeSpace3, officeSpace1, officeSpace2],
+  //     description: "Exclusive private office space for discerning professionals. Includes dedicated phone booths, executive meeting room, and concierge services.",
+  //     sqft: 600,
+  //     location: "Financial District",
+  //     amenities: ["Concierge", "Private Entrance", "Phone Booths", "Catering", "Security"],
+  //     propertyId: "POE-003"
+  //   }
+  // ];
 
   const features = [
     {
