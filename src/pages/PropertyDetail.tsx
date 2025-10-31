@@ -110,7 +110,7 @@ const PropertyDetail = () => {
                 <div className="flex items-center">
                   <Users className="h-5 w-5 mr-2 text-primary" />
                   <span className="font-medium text-text-primary">
-                    {fetchedproperty.size.toLocaleString()} sq ft
+                    {fetchedproperty.area.toLocaleString()} sq ft
                   </span>
                 </div>
                 <div className="text-2xl font-bold text-primary">
