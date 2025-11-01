@@ -161,6 +161,10 @@ const PropertyDetail = () => {
                     <span className="font-medium text-text-primary">{fetchedproperty.area.toLocaleString()} sq ft</span>
                   </div>
                   <div className="flex justify-between">
+                    <span className="text-text-secondary">{fetchedproperty.propertyID === 'PGR-005' ? "Total Capacity:" : "Seating Capacity:"}</span>
+                    <span className="font-medium text-text-primary">{fetchedproperty.seatingCapacity}</span>
+                  </div>
+                  <div className="flex justify-between">
                     <span className="text-text-secondary">Location:</span>
                     <span className="font-medium text-text-primary">{fetchedproperty.location}</span>
                   </div>
