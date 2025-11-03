@@ -46,6 +46,7 @@ const Booking = () => {
   useEffect(() => {
     const fetchOffices = async () => {
       const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}`, {});
+      console.log(await response.data.data);
       setOffices(await response.data.data);
     }
     fetchOffices();
@@ -176,7 +177,7 @@ const Booking = () => {
                       onClick={() => setSelectedOffice(office._id)}
                     >
                       <img
-                        src={images[1]}
+                        src={office.images[0]}
                         alt={office.propertyName}
                         className="w-full h-32 object-cover rounded-md mb-3"
                       />
@@ -188,9 +189,8 @@ const Booking = () => {
                       </div>
                       <div className="flex items-center text-sm text-text-secondary mb-2">
                         <Users className="h-3 w-3 mr-1" />
-                        {office.size} sq ft
+                        {office.propertyID === 'PGR-005' ? `${office.seatingCapacity} Beds` : `${office.area} sq ft`}
                       </div>
-                      {/* <div className="text-primary font-semibold">{office.price}/month</div> */}
                       {selectedOffice === office.id && (
                         <div className="mt-2 flex items-center text-primary">
                           <Check className="h-4 w-4 mr-1" />
@@ -240,7 +240,13 @@ const Booking = () => {
                               setSelectedDate(localDate);
                             }
                           }}
-                          disabled={(date) => date < new Date() || date < new Date("1900-01-01")}
+                          // disabled={(date) => date < new Date() || date < new Date("1900-01-01")}
+                          disabled={(date) => {
+                            const today = new Date();
+                            today.setHours(0, 0, 0, 0); // reset to midnight
+                            return date < today || date < new Date("1900-01-01");
+                          }}
+
                           initialFocus
                           className={cn("p-3 pointer-events-auto")}
                         />

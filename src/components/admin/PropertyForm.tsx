@@ -28,7 +28,7 @@ const PropertyForm = ({
     name: "",
     location: "",
     sqft: "",
-    monthlyRate: "",
+    seatingCapacity: "",
     description: "",
     amenities: "",
     status: "Available",
@@ -41,7 +41,7 @@ const PropertyForm = ({
         name: editProperty.name || "",
         location: editProperty.location || "",
         sqft: editProperty.sqft?.toString() || "",
-        monthlyRate: editProperty.monthlyRate?.replace('$', '').replace(',', '') || "",
+        seatingCapacity: editProperty.seatingCapacity || "",
         description: editProperty.description || "",
         amenities: editProperty.amenities?.join(', ') || "",
         status: editProperty.status || "Available",
@@ -59,7 +59,7 @@ const PropertyForm = ({
     propertyData.append("propertyID", editProperty ? editProperty.id : `PROP-${Date.now()}`);
     propertyData.append("location", formData.location);
     propertyData.append("area", formData.sqft);
-    propertyData.append("price", formData.monthlyRate);
+    propertyData.append("seatingCapacity", formData.seatingCapacity)
     propertyData.append("description", formData.description);
     propertyData.append("amenities", formData.amenities);
     propertyData.append("features", formData.status);
@@ -95,7 +95,7 @@ const PropertyForm = ({
             name: "",
             location: "",
             sqft: "",
-            monthlyRate: "",
+            seatingCapacity: "",
             description: "",
             amenities: "",
             status: "Available",
@@ -198,6 +198,17 @@ const PropertyForm = ({
                 required
               />
             </div>
+            <div className="space-y-2">
+              <Label htmlFor="seating capacity">Seating Capacity / Beds Available</Label>
+              <Input
+                id="seatingCapacity"
+                type="number"
+                value={formData.seatingCapacity}
+                onChange={(e) => handleInputChange("seatingCapacity", e.target.value)}
+                placeholder="20"
+                required
+              />
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -213,7 +224,7 @@ const PropertyForm = ({
 
           <div className="space-y-2">
             <Label htmlFor="amenities">Amenities (comma-separated)</Label>
-            <Input
+            <Textarea
               id="amenities"
               value={formData.amenities}
               onChange={(e) => handleInputChange("amenities", e.target.value)}
