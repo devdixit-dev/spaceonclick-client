@@ -21,26 +21,11 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
-interface Booking {
-  id: string;
-  customerName: string;
-  customerEmail: string;
-  customerPhone: string;
-  company?: string;
-  propertyName: string;
-  propertyId: string;
-  bookingDate: string;
-  bookingTime: string;
-  visitDate: string;
-  visitTime: string;
-  planType: string;
-  status: "confirmed" | "pending" | "cancelled";
-  additionalDetails?: string;
-  createdAt: string;
-}
+import { useToast } from "@/hooks/use-toast";
 
 const BookingsList = () => {
+  const { toast } = useToast();
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "confirmed":
@@ -73,13 +58,31 @@ const BookingsList = () => {
 
   const [bookings, setBookings] = useState([]);
 
+  const fetchBookings = async () => {
+    const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/bookings`, { withCredentials: true });
+    setBookings(res.data.bookings)
+  }
+
   useEffect(() => {
-    const fetchBookings = async () => {
-      const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/bookings`, { withCredentials: true });
-      setBookings(res.data.bookings)
-    }
     fetchBookings();
   }, []);
+
+  const handleChangeStatus = async (id: string) => {
+    const res = await axios.put(
+      `${import.meta.env.VITE_BACKEND_URL}/admin/booking/${id}`
+    )
+    if (res.data.success) {
+      toast({
+        title: "Booking Confirmed",
+        description: "Booking Confirmed Successfully",
+      });
+
+      fetchBookings();
+
+    } else {
+      throw new Error(res.data.message || "Failed to confirm booking.");
+    }
+  }
 
   return (
     <Card className="shadow-sm border border-border">
@@ -113,7 +116,7 @@ const BookingsList = () => {
                       <div className="space-y-1">
                         <div className="flex items-center">
                           <User className="h-4 w-4 mr-2 text-muted-foreground" />
-                          <span className="font-medium">{booking.firstName +" "+ booking.lastName}</span>
+                          <span className="font-medium">{booking.firstName + " " + booking.lastName}</span>
                         </div>
                         {booking.companyName && (
                           <p className="text-sm text-muted-foreground">{booking.companyName}</p>
@@ -126,8 +129,8 @@ const BookingsList = () => {
                       <div className="flex items-center">
                         <Building className="h-4 w-4 mr-2 text-muted-foreground" />
                         <div>
-                          <p className="font-medium">{booking?.propertyName}</p>
-                          {/* <p className="text-xs text-muted-foreground">ID: {booking.propertyId}</p> */}
+                          <p className="font-medium">{booking?.propertyID?.propertyName}</p>
+                          <p className="text-xs text-muted-foreground">ID: {booking.propertyID.propertyID}</p>
                         </div>
                       </div>
                     </TableCell>
@@ -173,11 +176,15 @@ const BookingsList = () => {
                     {/* Actions */}
                     <TableCell>
                       {booking.status === "pending" ? (
-                        <Button variant="default" size="sm" className="h-8">
+                        <Button variant="default" size="sm" className="h-8"
+                          onClick={() => handleChangeStatus(booking._id)}
+                        >
                           Confirm
                         </Button>
                       ) : (
-                        <span className="text-sm text-muted-foreground">—</span>
+                        <Button variant="ghost" size="sm" className="h-8" disabled={booking.status === 'confirmed' ? true : false}>
+                          Confirmed
+                        </Button>
                       )}
                     </TableCell>
                   </TableRow>

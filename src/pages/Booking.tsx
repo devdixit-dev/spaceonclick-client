@@ -46,7 +46,6 @@ const Booking = () => {
   useEffect(() => {
     const fetchOffices = async () => {
       const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}`, {});
-      console.log(await response.data.data);
       setOffices(await response.data.data);
     }
     fetchOffices();
