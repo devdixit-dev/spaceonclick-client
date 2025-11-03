@@ -57,14 +57,14 @@ const AboutUs = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 to-secondary/5">
+      <section className="py-14 bg-gradient-to-br from-primary/5 to-secondary/5">
         <div className="container mx-auto px-4 text-center">
           <Badge variant="secondary" className="mb-4">About Space On Click</Badge>
           <h1 className="text-4xl py-4 md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
             Redefining Workspace Solutions
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            For over 15 years, Space On Click has been the trusted partner for businesses seeking premium office spaces. 
+            For over 15 years, Space on click has been the trusted partner for businesses seeking premium office spaces. 
             We combine flexibility, quality, and innovation to create workspaces that inspire success.
           </p>
         </div>
@@ -88,7 +88,7 @@ const AboutUs = () => {
       </section>
 
       {/* Our Story Section */}
-      <section className="py-20 bg-muted/30">
+      {/* <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Our Story</h2>
@@ -118,7 +118,7 @@ const AboutUs = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Our Values Section */}
       <section className="py-20">
@@ -138,7 +138,7 @@ const AboutUs = () => {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-muted/30">
+      {/* <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Meet Our Team</h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -160,7 +160,7 @@ const AboutUs = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Contact CTA Section */}
       <section className="py-20">
