@@ -9,6 +9,7 @@ interface PropertyCardProps {
   images: string[];
   description: string;
   area: number;
+  seatingCapacity: number
   location: string;
   amenities: string[];
 }
@@ -18,7 +19,8 @@ const PropertyCard = ({
   propertyName, 
   images,
   description, 
-  area, 
+  area,
+  seatingCapacity, 
   location, 
   amenities,
 }: PropertyCardProps) => {
@@ -72,7 +74,7 @@ const PropertyCard = ({
               <div className="flex items-center mb-2">
                 <Users className="h-4 w-4 mr-2 text-primary" />
                 <span className="font-medium text-text-primary">
-                  {area} sq ft
+                  {propertyID === 'PGR-005' ? `${seatingCapacity} Beds Available` : `${area} sq ft`}
                 </span>
               </div>
             </div>

@@ -6,10 +6,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff, Lock, User } from "lucide-react";
+import axios from "axios";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+
   const [formData, setFormData] = useState({
     username: "",
     password: ""
@@ -17,36 +19,45 @@ const AdminLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Dummy admin credentials
-  const ADMIN_CREDENTIALS = {
-    username: "admin@gmail.com",
-    password: "admin"
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/admin/login`,
+        {
+          email: formData.username,
+          password: formData.password
+        },
+        { withCredentials: true }
+      );
 
-    if (formData.username === ADMIN_CREDENTIALS.username && 
-        formData.password === ADMIN_CREDENTIALS.password) {
-      localStorage.setItem("adminAuth", "true");
-      toast({
-        title: "Login Successful",
-        description: "Welcome to Space On Click Admin Panel",
-      });
-      navigate("/admin/dashboard");
-    } else {
+      if (res.data.success) {
+        toast({
+          title: "Login Successful",
+          description: "Welcome to Admin Panel",
+        });
+        localStorage.setItem("adminAuth", "true");
+        navigate("/admin/dashboard");
+      } else {
+        toast({
+          title: "Login Failed",
+          description: res.data.message,
+          variant: "destructive",
+        });
+      }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      console.error("Login error:", err);
       toast({
         title: "Login Failed",
-        description: "Invalid username or password",
-        variant: "destructive"
+        description: err.response?.data?.message || "Server error",
+        variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -61,7 +72,7 @@ const AdminLogin = () => {
             <Lock className="h-6 w-6 text-primary-foreground" />
           </div>
           <CardTitle className="text-2xl font-bold text-text-primary font-effra">
-            Space On Click Admin
+            Admin
           </CardTitle>
           <p className="text-text-secondary">Sign in to access the admin panel</p>
         </CardHeader>
@@ -74,7 +85,7 @@ const AdminLogin = () => {
                 <Input
                   id="username"
                   type="email"
-                  placeholder="admin@Space On Click.com"
+                  placeholder="admin@spaceonclick.com"
                   value={formData.username}
                   onChange={(e) => handleInputChange("username", e.target.value)}
                   className="pl-10"
@@ -105,16 +116,9 @@ const AdminLogin = () => {
                 </button>
               </div>
             </div>
-
-            <div className="bg-accent/50 p-3 rounded-md text-sm text-text-secondary">
-              <p className="font-medium mb-1">Demo Credentials:</p>
-              <p>Email: admin</p>
-              <p>Password: admin</p>
-            </div>
-
-            <Button 
-              type="submit" 
-              className="w-full" 
+            <Button
+              type="submit"
+              className="w-full"
               variant="professional"
               disabled={isLoading}
             >
