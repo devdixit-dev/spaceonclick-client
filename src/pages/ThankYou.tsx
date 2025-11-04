@@ -39,15 +39,6 @@ const ThankYou = () => {
               <CardContent className="p-6">
                 <h3 className="font-semibold text-text-primary mb-4">Booking Summary</h3>
                 <div className="space-y-2 text-sm">
-                  {/* <div>
-                    <span className="font-medium">Office Space:</span> {bookingData.office?.name}
-                  </div> */}
-                  {/* <div>
-                    <span className="font-medium">Property ID:</span> {bookingData.propertyID}
-                  </div> */}
-                  {/* <div>
-                    <span className="font-medium">Plan:</span> {bookingData.plan?.name}
-                  </div> */}
                   <div>
                     <span className="font-medium">Contact Person:</span> {bookingData.firstName} {bookingData.lastName}
                   </div>

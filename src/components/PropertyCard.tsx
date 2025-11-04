@@ -102,11 +102,6 @@ const PropertyCard = ({
                 More Info
               </Button>
             </Link>
-            {/* <Link to={`/booking?property=${id}`} className="flex-1">
-              <Button variant="professional" className="w-full">
-                Book Now
-              </Button>
-            </Link> */}
           </CardFooter>
         </div>
       </div>

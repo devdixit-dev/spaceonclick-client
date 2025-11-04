@@ -31,7 +31,6 @@ const PropertyDetail = () => {
     );
   }
 
-
   const iconMap = {
     "High-speed": Wifi,
     "Gigabit": Wifi,
@@ -89,9 +88,6 @@ const PropertyDetail = () => {
                   <h1 className="text-3xl font-bold text-text-primary mb-2 font-effra">
                     {fetchedproperty.propertyName}
                   </h1>
-                  {/* <div className="text-text-muted mb-2">
-                    Property ID: {fetchedproperty.propertyID}
-                  </div> */}
                   <div className="flex items-center text-text-secondary mb-2">
                     <MapPin className="h-4 w-4 mr-2" />
                     {fetchedproperty.location}
@@ -101,19 +97,6 @@ const PropertyDetail = () => {
                   {fetchedproperty.isAvailable}
                 </Badge>
               </div>
-
-              {/* <div className="flex items-center space-x-6 mb-6"> */}
-                {/* <div className="flex items-center">
-                  <Users className="h-5 w-5 mr-2 text-primary" />
-                  <span className="font-medium text-text-primary">
-                    {fetchedproperty.size.toLocaleString()} sq ft
-                  </span>
-                </div> */}
-                {/* <div className="text-2xl font-bold text-primary">
-                  {fetchedproperty.price}/month
-                </div> */}
-              {/* </div> */}
-
               <p className="text-text-secondary leading-relaxed mb-6">
                 {fetchedproperty.description}
               </p>
@@ -144,13 +127,6 @@ const PropertyDetail = () => {
           <div className="lg:col-span-1">
             <Card className="sticky top-24">
               <CardContent className="p-6">
-                {/* <div className="text-center mb-6">
-                  <div className="text-3xl font-bold text-primary mb-2">
-                    {fetchedproperty.price}
-                  </div>
-                  <div className="text-text-muted">per month</div>
-                </div> */}
-
                 <div className="space-y-4 mb-6">
                   <div className="flex justify-between">
                     <span className="text-text-secondary">Property ID:</span>

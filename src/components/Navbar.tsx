@@ -21,7 +21,6 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img src={logo} alt="" className="w-32 h-32 rounded-lg" />
-            {/* <span className="text-2xl font-bold text-primary font-effra">Space On Click</span> */}
           </Link>
 
           {/* Desktop Navigation */}

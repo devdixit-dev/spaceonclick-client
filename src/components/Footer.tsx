@@ -35,9 +35,6 @@ const Footer = () => {
               <Link to="/booking" className="block text-text-secondary hover:text-primary transition-colors">
                 Book Now
               </Link>
-              {/* <Link to="/contact" className="block text-text-secondary hover:text-primary transition-colors">
-                Contact
-              </Link> */}
             </div>
           </div>
         </div>

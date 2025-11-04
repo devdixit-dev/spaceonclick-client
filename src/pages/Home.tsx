@@ -6,16 +6,6 @@ import { ArrowRight, Building, Users, Headphones } from "lucide-react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-// Import office images
-// import officeSpace1 from "@/assets/office-space-1.jpg";
-// import officeSpace2 from "@/assets/office-space-2.jpg";
-// import officeSpace3 from "@/assets/office-space-3.jpg";
-
-// IMPORT 9 NO OFFICES
-import office1 from '@/assets/9/1.jpeg'
-import office2 from '@/assets/9/2.jpeg'
-import office3 from '@/assets/9/3.jpeg'
-
 import { useEffect, useState } from "react";
 
 const Home = () => {
@@ -37,39 +27,6 @@ const Home = () => {
       // console.log("Fetched properties:", property);
     }
   }, [property]);
-
-  // const properties = [
-  //   {
-  //     id: "1",
-  //     name: "Executive Suite Premium",
-  //     images: [office1, office2, office3],
-  //     description: "A sophisticated executive office space perfect for established businesses. Features premium furnishings, private meeting areas, and stunning city views.",
-  //     sqft: 1200,
-  //     location: "Downtown Business District",
-  //     amenities: ["High-speed WiFi", "Meeting Rooms", "Reception Area", "Parking", "24/7 Access"],
-  //     propertyId: "ES-001"
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "Modern Collaborative Hub",
-  //     // images: [officeSpace2, officeSpace3, officeSpace1],
-  //     description: "Open-plan workspace designed for creative teams and startups. Flexible layout with collaborative zones and state-of-the-art technology infrastructure.",
-  //     sqft: 800,
-  //     location: "Tech Quarter",
-  //     amenities: ["Fiber Internet", "Collaboration Tools", "Kitchen", "Lounge Area", "Printing"],
-  //     propertyId: "MCH-002"
-  //   },
-  //   {
-  //     id: "3",
-  //     name: "Private Office Elite",
-  //     // images: [officeSpace3, officeSpace1, officeSpace2],
-  //     description: "Exclusive private office space for discerning professionals. Includes dedicated phone booths, executive meeting room, and concierge services.",
-  //     sqft: 600,
-  //     location: "Financial District",
-  //     amenities: ["Concierge", "Private Entrance", "Phone Booths", "Catering", "Security"],
-  //     propertyId: "POE-003"
-  //   }
-  // ];
 
   const features = [
     {

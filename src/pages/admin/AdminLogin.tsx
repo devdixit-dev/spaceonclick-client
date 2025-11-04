@@ -49,7 +49,6 @@ const AdminLogin = () => {
       }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      console.error("Login error:", err);
       toast({
         title: "Login Failed",
         description: err.response?.data?.message || "Server error",
