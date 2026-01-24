@@ -173,7 +173,7 @@ const AboutUs = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <div className="flex items-center gap-2 text-muted-foreground">
               <Phone className="h-5 w-5" />
-              <span>+91 12345 67890</span>
+              <span>+91 99798 76366</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <MapPin className="h-5 w-5" />

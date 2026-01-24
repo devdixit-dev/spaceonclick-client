@@ -166,8 +166,8 @@ const PropertyDetail = () => {
                     <p className="mb-2">Need help choosing?</p>
                     <div className="flex items-center justify-center space-x-2">
                       <span>Call us:</span>
-                      <a href="tel:+911234567890" className="text-primary font-medium hover:underline">
-                        +91 12345 67890
+                      <a href="tel:+919979876366" className="text-primary font-medium hover:underline">
+                        +91 99798 76366
                       </a>
                     </div>
                   </div>
