@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Users, Wifi, Car, Coffee, Shield, ArrowLeft, Dot } from "lucide-react";
+import { MapPin, Users, Wifi, Car, Coffee, Shield, ArrowLeft, Dot, ChevronLeft, ChevronRight } from "lucide-react";
 
 import { useEffect, useState } from "react";
 import axiosInstance from "@/api/axios";
@@ -12,6 +12,7 @@ import axiosInstance from "@/api/axios";
 const PropertyDetail = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [fetchedproperty, setFetchedProperty] = useState<any | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { id } = useParams();
 
   useEffect(() => {
@@ -22,6 +23,22 @@ const PropertyDetail = () => {
 
     if (id) fetchData();
   }, [id]);
+
+  const nextImage = () => {
+    if (fetchedproperty?.images) {
+      setCurrentImageIndex((prev) => (prev + 1) % fetchedproperty.images.length);
+    }
+  };
+
+  const prevImage = () => {
+    if (fetchedproperty?.images) {
+      setCurrentImageIndex((prev) => (prev - 1 + fetchedproperty.images.length) % fetchedproperty.images.length);
+    }
+  };
+
+  const goToImage = (index: number) => {
+    setCurrentImageIndex(index);
+  };
 
   if (!fetchedproperty) {
     return (
@@ -62,23 +79,72 @@ const PropertyDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2">
-            {/* Image Gallery */}
-            <div className="grid grid-cols-2 gap-2 mb-8">
-              <img
-                src={fetchedproperty.images[0]}
-                alt={`Main view`}
-                className="w-full h-64 object-cover rounded-lg col-span-2"
-              />
-              <img
-                src={fetchedproperty.images[1]}
-                alt={`Secondary view`}
-                className="w-full h-32 object-cover rounded-lg"
-              />
-              <img
-                src={fetchedproperty.images[2]}
-                alt={`Third view`}
-                className="w-full h-32 object-cover rounded-lg"
-              />
+            {/* Image Gallery - Slider */}
+            <div className="relative mb-8 group">
+              <div className="relative h-98 bg-gray-200 rounded-lg overflow-hidden">
+                {fetchedproperty.images && fetchedproperty.images.length > 0 ? (
+                  <>
+                    <img
+                      src={fetchedproperty.images[currentImageIndex]}
+                      alt={`${fetchedproperty.propertyName} - Image ${currentImageIndex + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                    
+                    {/* Navigation Arrows */}
+                    {fetchedproperty.images.length > 1 && (
+                      <>
+                        <button
+                          onClick={prevImage}
+                          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                          aria-label="Previous image"
+                        >
+                          <ChevronLeft className="w-6 h-6 text-gray-800" />
+                        </button>
+                        <button
+                          onClick={nextImage}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+                          aria-label="Next image"
+                        >
+                          <ChevronRight className="w-6 h-6 text-gray-800" />
+                        </button>
+                      </>
+                    )}
+
+                    {/* Image Counter */}
+                    <div className="absolute top-4 right-4 bg-black/60 text-white px-3 py-1.5 rounded-full text-sm font-medium">
+                      {currentImageIndex + 1} / {fetchedproperty.images.length}
+                    </div>
+
+                    {/* Thumbnail Navigation
+                    {fetchedproperty.images.length > 1 && (
+                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-black/40 p-2 rounded-lg backdrop-blur-sm">
+                        {fetchedproperty.images.map((img: string, index: number) => (
+                          <button
+                            key={index}
+                            onClick={() => goToImage(index)}
+                            className={`w-16 h-16 rounded-md overflow-hidden border-2 transition-all ${
+                              index === currentImageIndex
+                                ? "border-white scale-110"
+                                : "border-white/40 hover:border-white/70"
+                            }`}
+                            aria-label={`Go to image ${index + 1}`}
+                          >
+                            <img
+                              src={img}
+                              alt={`Thumbnail ${index + 1}`}
+                              className="w-full h-full object-cover"
+                            />
+                          </button>
+                        ))}
+                      </div>
+                    )} */}
+                  </>
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-400">
+                    No images available
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Property Info */}
