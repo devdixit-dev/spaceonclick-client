@@ -81,7 +81,7 @@ const PropertyDetail = () => {
           <div className="lg:col-span-2">
             {/* Image Gallery - Slider */}
             <div className="relative mb-8 group">
-              <div className="relative h-98 bg-gray-200 rounded-lg overflow-hidden">
+              <div className="relative h-96 bg-gray-200 rounded-lg overflow-hidden">
                 {fetchedproperty.images && fetchedproperty.images.length > 0 ? (
                   <>
                     <img
