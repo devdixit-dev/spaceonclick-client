@@ -154,7 +154,6 @@ const Booking = () => {
               Choose your preferred office space and rental plan to get started.
             </p>
           </div>
-
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Office Selection */}
             <Card>
@@ -166,7 +165,7 @@ const Booking = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {offices.map((office) => (
+                  {offices.filter((office) => office?.isAvailable).map((office) => (
                     <div
                       key={office._id}
                       className={`border-2 rounded-lg p-4 cursor-pointer transition-all ${selectedOffice === office._id
@@ -354,7 +353,6 @@ const Booking = () => {
                 </div>
               </CardContent>
             </Card>
-
             <div className="text-center">
               <Button type="submit" variant="professional" size="lg" className="px-12">
                 Continue Booking

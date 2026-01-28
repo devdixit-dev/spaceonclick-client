@@ -215,16 +215,13 @@ const PropertyDetail = () => {
                     <span className="font-medium text-primary">{fetchedproperty.isAvailable ? "Available now" : "Not available"}</span>
                   </div>
                 </div>
-
-                <div className="space-y-3">
-                  <Link to={`/booking?property=${fetchedproperty.propertyID}`} className="block">
+                <div className={`space-y-3 ${fetchedproperty.isAvailable ? `` : `hidden`}`}>
+                  <Link to={`/booking?property=${fetchedproperty.propertyID}`} className="block"
+                        aria-disabled={fetchedproperty.isAvailable !== "Not available"}>
                     <Button variant="professional" className="w-full">
                       Book This Space
                     </Button>
                   </Link>
-                  {/* <Button variant="outline-professional" className="w-full">
-                    Schedule Tour
-                  </Button> */}
                 </div>
 
                 <div className="mt-6 p-4 bg-accent rounded-lg">
