@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Phone, Menu, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import logo from '@/assets/logo.png'
+import logo from '@/assets/logo-footer-removebg-preview.ico'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +20,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img src={logo} alt="" className="w-32 h-32 rounded-lg" />
+            <img src={logo} alt="" className="w-36 h-36 rounded-lg" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -67,12 +67,8 @@ const Navbar = () => {
                 <div className="pt-4 border-t border-border">
                   <div className="flex items-center space-x-2 text-text-secondary mb-4">
                     <Phone className="h-4 w-4" />
-                    <span className="font-medium">+1 (555) 123-4567</span>
+                    <span className="font-medium">+91 99798 76366</span>
                   </div>
-                  
-                  <Button variant="professional" className="w-full">
-                    Contact Us
-                  </Button>
                 </div>
               </div>
             </SheetContent>
