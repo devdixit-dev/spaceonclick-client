@@ -41,9 +41,14 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-border mt-8 pt-6 flex flex-col sm:flex-row items-center justify-end">
+        <div className="border-t border-border mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between">
+          <div className="flex items-center mb-2">
+            <p className="text-text-muted text-sm sm:mb-0">All systems are working</p>
+            <p className="h-2 w-2 bg-green-500 ml-3 rounded-full animate-ping"></p>
+          </div>
+
           <p className="text-text-muted text-sm mb-2 sm:mb-0">
-            © 2025 spaceonclick. All rights reserved.
+            © 2026 spaceonclick. All rights reserved.
           </p>
         </div>
       </div>

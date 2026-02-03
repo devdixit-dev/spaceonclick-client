@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Phone, Menu, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import logo from '@/assets/logo-footer-removebg-preview.ico'
+import logo from '@/assets/logo-footer.png'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,7 +67,7 @@ const Navbar = () => {
                 <div className="pt-4 border-t border-border">
                   <div className="flex items-center space-x-2 text-text-secondary mb-4">
                     <Phone className="h-4 w-4" />
-                    <span className="font-medium">+91 99798 76366</span>
+                    <span className="font-medium"><a href="tel:+919979876366" className="text-orange-500">+91 99798 76366</a></span>
                   </div>
                 </div>
               </div>
