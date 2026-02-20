@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  LayoutDashboard, 
-  Calendar, 
-  Users, 
-  Building, 
+import {
+  LayoutDashboard,
+  Calendar,
+  Users,
+  Building,
   LogOut,
   TrendingUp,
   Plus
@@ -117,7 +117,7 @@ const AdminDashboard = () => {
         nextAvailableDate: "2024-02-01"
       },
       {
-        id: "MCH-002", 
+        id: "MCH-002",
         name: "Modern Collaborative Hub",
         location: "Tech Quarter",
         sqft: 800,
@@ -130,7 +130,7 @@ const AdminDashboard = () => {
       },
       {
         id: "POE-003",
-        name: "Private Office Elite", 
+        name: "Private Office Elite",
         location: "Financial District",
         sqft: 600,
         monthlyRate: "$2,200",
@@ -219,10 +219,15 @@ const AdminDashboard = () => {
                 <p className="text-sm text-text-secondary">Dashboard</p>
               </div>
             </div>
-            <Button onClick={handleLogout} variant="outline" size="sm">
-              <LogOut className="h-4 w-4 mr-2" />
-              Logout
-            </Button>
+            <div className="flex gap-8">
+              <Button>
+                <a href="/">Home</a>
+              </Button>
+              <Button onClick={handleLogout} variant="outline" size="sm">
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -243,7 +248,7 @@ const AdminDashboard = () => {
 
           {/* Properties Tab */}
           <TabsContent value="properties">
-            <PropertiesManagement 
+            <PropertiesManagement
               properties={properties}
               onEditProperty={handleEditProperty}
               onDeleteProperty={handleDeleteProperty}
@@ -252,7 +257,7 @@ const AdminDashboard = () => {
 
           {/* Add Property Tab */}
           <TabsContent value="add-property">
-            <PropertyForm 
+            <PropertyForm
               onPropertyAdded={handlePropertyAdded}
               onPropertyUpdated={handlePropertyUpdated}
               editProperty={editingProperty}
